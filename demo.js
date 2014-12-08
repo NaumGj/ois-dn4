@@ -4,6 +4,7 @@ var queryUrl = baseUrl + '/query';
 
 var username = "ois.seminar";
 var password = "ois4fri";
+var markersArray = [];
 
 function getSessionId() {
     var response = $.ajax({
@@ -85,7 +86,7 @@ function preberiEHRodBolnika() {
 				console.log(JSON.parse(err.responseText).userMessage);
 			}
 		});
-	}	
+	}
 }
 
 
@@ -146,7 +147,7 @@ function dodajMeritveVitalnihZnakov() {
 
 
 function preberiMeritveVitalnihZnakov() {
-	sessionId = getSessionId();	
+	sessionId = getSessionId();
 
 	var ehrId = $("#meritveVitalnihZnakovEHRid").val();
 	var tip = $("#preberiTipZaVitalneZnake").val();
@@ -156,101 +157,400 @@ function preberiMeritveVitalnihZnakov() {
 	} else {
 		$.ajax({
 			url: baseUrl + "/demographics/ehr/" + ehrId + "/party",
-	    	type: 'GET',
-	    	headers: {"Ehr-Session": sessionId},
-	    	success: function (data) {
+			type: 'GET',
+			headers: {"Ehr-Session": sessionId},
+			success: function (data) {
 				var party = data.party;
 				$("#rezultatMeritveVitalnihZnakov").html("<br/><span>Pridobivanje podatkov za <b>'" + tip + "'</b> bolnika <b>'" + party.firstNames + " " + party.lastNames + "'</b>.</span><br/><br/>");
 				if (tip == "telesna temperatura") {
 					$.ajax({
-					    url: baseUrl + "/view/" + ehrId + "/" + "body_temperature",
-					    type: 'GET',
-					    headers: {"Ehr-Session": sessionId},
-					    success: function (res) {
-					    	if (res.length > 0) {
-						    	var results = "<table class='table table-striped table-hover'><tr><th>Datum in ura</th><th class='text-right'>Telesna temperatura</th></tr>";
-						        for (var i in res) {
-						            results += "<tr><td>" + res[i].time + "</td><td class='text-right'>" + res[i].temperature + " " 	+ res[i].unit + "</td>";
-						        }
-						        results += "</table>";
-						        $("#rezultatMeritveVitalnihZnakov").append(results);
-					    	} else {
-					    		$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-warning fade-in'>Ni podatkov!</span>");
-					    	}
-					    },
-					    error: function() {
-					    	$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
+						url: baseUrl + "/view/" + ehrId + "/" + "body_temperature",
+						type: 'GET',
+						headers: {"Ehr-Session": sessionId},
+						success: function (res) {
+							if (res.length > 0) {
+								var results = "<table class='table table-striped table-hover'><tr><th>Datum in ura</th><th class='text-right'>Telesna temperatura</th></tr>";
+								for (var i in res) {
+									results += "<tr><td>" + res[i].time + "</td><td class='text-right'>" + res[i].temperature + " " + res[i].unit + "</td>";
+								}
+								results += "</table>";
+								$("#rezultatMeritveVitalnihZnakov").append(results);
+							} else {
+								$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-warning fade-in'>Ni podatkov!</span>");
+							}
+						},
+						error: function () {
+							$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
 							console.log(JSON.parse(err.responseText).userMessage);
-					    }
+						}
 					});
 				} else if (tip == "telesna teža") {
 					$.ajax({
-					    url: baseUrl + "/view/" + ehrId + "/" + "weight",
-					    type: 'GET',
-					    headers: {"Ehr-Session": sessionId},
-					    success: function (res) {
-					    	if (res.length > 0) {
-						    	var results = "<table class='table table-striped table-hover'><tr><th>Datum in ura</th><th class='text-right'>Telesna teža</th></tr>";
-						        for (var i in res) {
-						            results += "<tr><td>" + res[i].time + "</td><td class='text-right'>" + res[i].weight + " " 	+ res[i].unit + "</td>";
-						        }
-						        results += "</table>";
-						        $("#rezultatMeritveVitalnihZnakov").append(results);
-					    	} else {
-					    		$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-warning fade-in'>Ni podatkov!</span>");
-					    	}
-					    },
-					    error: function() {
-					    	$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
+						url: baseUrl + "/view/" + ehrId + "/" + "weight",
+						type: 'GET',
+						headers: {"Ehr-Session": sessionId},
+						success: function (res) {
+							if (res.length > 0) {
+								var results = "<table class='table table-striped table-hover'><tr><th>Datum in ura</th><th class='text-right'>Telesna teža</th></tr>";
+								for (var i in res) {
+									results += "<tr><td>" + res[i].time + "</td><td class='text-right'>" + res[i].weight + " " + res[i].unit + "</td>";
+								}
+								results += "</table>";
+								$("#rezultatMeritveVitalnihZnakov").append(results);
+							} else {
+								$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-warning fade-in'>Ni podatkov!</span>");
+							}
+						},
+						error: function () {
+							$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
 							console.log(JSON.parse(err.responseText).userMessage);
-					    }
-					});					
+						}
+					});
 				} else if (tip == "telesna temperatura AQL") {
-					var AQL = 
+					var AQL =
 						"select " +
-    						"t/data[at0002]/events[at0003]/time/value as cas, " +
-    						"t/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude as temperatura_vrednost, " +
-    						"t/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/units as temperatura_enota " +
+						"t/data[at0002]/events[at0003]/time/value as cas, " +
+						"t/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude as temperatura_vrednost, " +
+						"t/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/units as temperatura_enota " +
 						"from EHR e[e/ehr_id/value='" + ehrId + "'] " +
 						"contains OBSERVATION t[openEHR-EHR-OBSERVATION.body_temperature.v1] " +
 						"where t/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude<35 " +
 						"order by t/data[at0002]/events[at0003]/time/value desc " +
 						"limit 10";
 					$.ajax({
-					    url: baseUrl + "/query?" + $.param({"aql": AQL}),
-					    type: 'GET',
-					    headers: {"Ehr-Session": sessionId},
-					    success: function (res) {
-					    	var results = "<table class='table table-striped table-hover'><tr><th>Datum in ura</th><th class='text-right'>Telesna temperatura</th></tr>";
-					    	if (res) {
-					    		var rows = res.resultSet;
-						        for (var i in rows) {
-						            results += "<tr><td>" + rows[i].cas + "</td><td class='text-right'>" + rows[i].temperatura_vrednost + " " 	+ rows[i].temperatura_enota + "</td>";
-						        }
-						        results += "</table>";
-						        $("#rezultatMeritveVitalnihZnakov").append(results);
-					    	} else {
-					    		$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-warning fade-in'>Ni podatkov!</span>");
-					    	}
+						url: baseUrl + "/query?" + $.param({"aql": AQL}),
+						type: 'GET',
+						headers: {"Ehr-Session": sessionId},
+						success: function (res) {
+							var results = "<table class='table table-striped table-hover'><tr><th>Datum in ura</th><th class='text-right'>Telesna temperatura</th></tr>";
+							if (res) {
+								var rows = res.resultSet;
+								for (var i in rows) {
+									results += "<tr><td>" + rows[i].cas + "</td><td class='text-right'>" + rows[i].temperatura_vrednost + " " + rows[i].temperatura_enota + "</td>";
+								}
+								results += "</table>";
+								$("#rezultatMeritveVitalnihZnakov").append(results);
+							} else {
+								$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-warning fade-in'>Ni podatkov!</span>");
+							}
 
-					    },
-					    error: function() {
-					    	$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
+						},
+						error: function () {
+							$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
 							console.log(JSON.parse(err.responseText).userMessage);
-					    }
+						}
 					});
 				}
-	    	},
-	    	error: function(err) {
-	    		$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
+			},
+			error: function (err) {
+				$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
 				console.log(JSON.parse(err.responseText).userMessage);
-	    	}
+			}
 		});
 	}
 }
 
+function najdiZdravnike(obmocje){
+	var rawFile = new XMLHttpRequest();
+	var zdravniki;
+	rawFile.open("GET", "zdravniki.txt", false);
+	rawFile.onreadystatechange = function () {
+		if(rawFile.readyState === 4) {
+			if(rawFile.status === 200 || rawFile.status == 0) {
+				zdravniki = rawFile.responseText.split("\n");
+			}
+		}
+	}
+	rawFile.send(null);
+
+	var ustrezniZdravniki = [];
+	var stevec = 0;
+	for(var i=0; i<zdravniki.length; i++) {
+		if (zdravniki[i].split(",")[1].toLowerCase().indexOf(obmocje) !== (-1)) {
+			ustrezniZdravniki[stevec]=zdravniki[i];
+			stevec++;
+		}
+	}
+	return ustrezniZdravniki;
+
+}
+
+function najdiNaStrani(zdravniki, strana){
+	var obmocje = strana*5;
+	if(zdravniki.length<=obmocje){
+		return null;
+	}else{
+		meja=obmocje+5;
+		var zdravnikiNaStrani = [];
+		for(var i=obmocje, j=0; i<meja; i++, j++){
+			if(zdravniki[i] != undefined) {
+				zdravnikiNaStrani[j] = zdravniki[i];
+			}
+		}
+		return zdravnikiNaStrani;
+	}
+}
+
+function najdiPreviousPage(){
+	var obmocje = $("#obmocje").val();
+	var strana = $("#strana").val();
+	if(strana>0) {
+		strana--;
+		$("#strana").val(strana);
+		$("#next").attr('class', 'enabled');
+	}
+	if(strana>0){
+		$("#previous").attr('class', 'enabled');
+	}else{
+		$("#previous").attr('class', 'disabled');
+	}
+	var zdravniki = najdiZdravnike(obmocje);
+	//console.log(zdravniki.length);
+	var zdravnikiNaStrani = najdiNaStrani(zdravniki, strana);
+	//for(var i=0; i<zdravnikiNaStrani.length; i++) {
+	//	console.log(zdravnikiNaStrani[i]);
+	//}
+	vstaviZdravnikeNaStrani(zdravnikiNaStrani);
+	var strana = $("#strana").val();
+	console.log(strana);
+}
+
+function najdiNextPage(){
+	var obmocje = $("#obmocje").val();
+	var strana = $("#strana").val();
+	strana++;
+	var zdravniki = najdiZdravnike(obmocje);
+	if(zdravniki.length<(strana*5+6)){
+		$("#next").attr('class', 'disabled');
+	}else{
+		$("#next").attr('class', 'enabled');
+	}
+	var zdravnikiNaStrani = najdiNaStrani(zdravniki, strana);
+	if(zdravnikiNaStrani != null){
+		$("#strana").val(strana);
+		vstaviZdravnikeNaStrani(zdravnikiNaStrani);
+	}
+	$("#previous").attr('class', 'enabled');
+	//console.log(zdravniki.length);
+
+	//for(var i=0; i<zdravnikiNaStrani.length; i++) {
+	//	console.log(zdravnikiNaStrani[i]);
+	//}
+	var strana = $("#strana").val();
+	console.log(strana);
+}
+
+function vstaviZdravnikeNaStrani(zdravnikiNaStrani){
+	$("#zdravnik1").text("");
+	$("#zdravnik2").text("");
+	$("#zdravnik3").text("");
+	$("#zdravnik4").text("");
+	$("#zdravnik5").text("");
+	if(zdravnikiNaStrani.length >= 1) {
+		$("#zdravnik1").text(zdravnikiNaStrani[0].split(",")[0]);
+		$("#adresa1").text(zdravnikiNaStrani[0].split(",")[2]);
+	}
+	if(zdravnikiNaStrani.length >= 2) {
+		$("#zdravnik2").text(zdravnikiNaStrani[1].split(",")[0]);
+		$("#adresa2").text(zdravnikiNaStrani[1].split(",")[2]);
+	}
+	if(zdravnikiNaStrani.length >= 3) {
+		$("#zdravnik3").text(zdravnikiNaStrani[2].split(",")[0]);
+		$("#adresa3").text(zdravnikiNaStrani[2].split(",")[2]);
+	}
+	if(zdravnikiNaStrani.length >= 4) {
+		$("#zdravnik4").text(zdravnikiNaStrani[3].split(",")[0]);
+		$("#adresa4").text(zdravnikiNaStrani[3].split(",")[2]);
+	}
+	if(zdravnikiNaStrani.length == 5) {
+		$("#zdravnik5").text(zdravnikiNaStrani[4].split(",")[0]);
+		$("#adresa5").text(zdravnikiNaStrani[4].split(",")[2]);
+	}
+}
+
+function oznaciNaMapi(zdravnik, adresa){
+	x = navigator.geolocation;
+
+	x.getCurrentPosition(success, failure);
+
+	function success(position) {
+		if(adresa === "prvic") {
+			var lat = position.coords.latitude;
+			var long = position.coords.longitude;
+
+			var coords = new google.maps.LatLng(lat, long);
+
+			var mapOptions = {
+				zoom: 13,
+				center: coords,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			}
+
+			map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+			oms = new OverlappingMarkerSpiderfier(map);
+
+			var marker = new google.maps.Marker({
+				map: map,
+				position: coords,
+				icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+			});
+
+		}else {
+
+			geo(adresa);
+			function geo(address) {
+				//for (var i = 0; i < address.length; i++) {
+				//	curAddress = address[i];
+				var curAddress = address;
+				var geocoder = new google.maps.Geocoder();
+				if (geocoder) {
+					geocoder.geocode({'address': curAddress}, function (results, status) {
+						if (status == google.maps.GeocoderStatus.OK) {
+							vstaviMarker(results[0].geometry.location.lat(), results[0].geometry.location.lng());
+						} else {
+							alert("Geocode was not successful for the following reason: " + status);
+						}
+					});
+				}
+				//}
+			}
+
+			function vstaviMarker(lati, longi) {
+				//console.log(map);
+
+				var marker = new google.maps.Marker({
+					map: map,
+					position: new google.maps.LatLng(lati, longi),
+					animation: google.maps.Animation.DROP
+				});
+				markersArray.push(marker);
+				oms.addMarker(marker);
+				var iw = new google.maps.InfoWindow();
+				oms.addListener('click', function(marker, event) {
+					iw.setContent(zdravnik);
+					iw.open(map, marker);
+				});
+				oms.addListener('spiderfy', function(markers) {
+					iw.close();
+				});
+				oms.addListener('unspiderfy', function(markers) {
+					iw.close();
+				});
+			}
+		}
+	}
+
+	function failure(){
+		$('#map').html("<p>Ni bilo mogoče najti vašo pozicijo! Omogocite da brskalnik sledi vašo pozicijo!</p>");
+	}
+
+		//var rawFile = new XMLHttpRequest();
+		//var zdravniki;
+		//rawFile.open("GET", "zdravniki.txt", false);
+		//rawFile.onreadystatechange = function () {
+		//	if(rawFile.readyState === 4) {
+		//		if(rawFile.status === 200 || rawFile.status == 0) {
+		//			zdravniki = rawFile.responseText.split("\n");
+		//		}
+		//	}
+		//}
+		//rawFile.send(null);
+		////console.log(zdravniki[0]);
+
+		//var address = [];
+		//for(var i=0; i<30; i++) {
+		//	address[i] = zdravniki[i].split(",")[2];
+		//	//console.log(address);
+		//}
+
+}
+function clearOverlays() {
+	for (var i = 0; i < markersArray.length; i++ ) {
+		markersArray[i].setMap(null);
+	}
+	markersArray.length = 0;
+}
+//function najdiZdravniki(){
+//	x = navigator.geolocation;
+//
+//	x.getCurrentPosition(success, failure);
+//
+//	function success(position){
+//		var lat = position.coords.latitude;
+//		var long = position.coords.longitude;
+//
+//		var coords = new google.maps.LatLng(lat, long);
+//
+//		var mapOptions = {
+//			zoom: 13,
+//			center: coords,
+//			mapTypeId: google.maps.MapTypeId.ROADMAP
+//		}
+//
+//		var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+//
+//		var marker = new google.maps.Marker({map: map, position: coords, icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png', title: 'Pozdravljeni, svet!'});
+//
+//		var rawFile = new XMLHttpRequest();
+//		var zdravniki;
+//		rawFile.open("GET", "zdravniki.txt", false);
+//		rawFile.onreadystatechange = function () {
+//			if(rawFile.readyState === 4) {
+//				if(rawFile.status === 200 || rawFile.status == 0) {
+//					zdravniki = rawFile.responseText.split("\n");
+//				}
+//			}
+//		}
+//		rawFile.send(null);
+//		//console.log(zdravniki[0]);
+//
+//		var najblizje = [];
+//		for (int i=0; i<3; i++){
+//			najblizje[i]=1000;
+//		}
+//		var address = [];
+//		for(var i=0; i<30; i++) {
+//			address[i] = zdravniki[i].split(",")[2];
+//			//console.log(address);
+//		}
+//
+//		geo(address);
+//
+//		function geo(address) {
+//			for (var i = 0; i < address.length; i++) {
+//				curAddress = address[i];
+//				var geocoder = new google.maps.Geocoder();
+//				if(geocoder) {
+//					geocoder.geocode({'address': curAddress}, function (results, status) {
+//						if (status == google.maps.GeocoderStatus.OK) {
+//							vstaviMarker(results[0].geometry.location.lat(), results[0].geometry.location.lng());
+//						}else{
+//							alert("Geocode was not successful for the following reason: " + status);
+//						}
+//					});
+//				}
+//			}
+//		}
+//
+//		function vstaviMarker(lati, longi){
+//			var marker = new google.maps.Marker({
+//				map: map,
+//				position: new google.maps.LatLng(lati, longi),
+//				animation: google.maps.Animation.DROP
+//			});
+//		}
+//
+//	}
+//
+//	function failure(){
+//		$('#map').html("<p>Ni bilo mogoče najti vašo pozicijo! Omogocite da brskalnik sledi vašo pozicijo!</p>");
+//	}
+//
+//}
 
 $(document).ready(function() {
+	oznaciNaMapi("","prvic");
 	$('#preberiObstojeciEHR').change(function() {
 		$("#preberiSporocilo").html("");
 		$("#preberiEHRid").val($(this).val());
@@ -261,6 +561,7 @@ $(document).ready(function() {
 		$("#kreirajIme").val(podatki[0]);
 		$("#kreirajPriimek").val(podatki[1]);
 		$("#kreirajDatumRojstva").val(podatki[2]);
+
 	});
 	$('#preberiObstojeciVitalniZnak').change(function() {
 		$("#dodajMeritveVitalnihZnakovSporocilo").html("");
@@ -279,5 +580,56 @@ $(document).ready(function() {
 		$("#preberiMeritveVitalnihZnakovSporocilo").html("");
 		$("#rezultatMeritveVitalnihZnakov").html("");
 		$("#meritveVitalnihZnakovEHRid").val($(this).val());
+	});
+	$("#obmocje").change(function() {
+		//alert( "Handler for .change() called." );
+		clearOverlays();
+		var obmocje = $(this).val();
+		var str = 0;
+		$("#strana").val(str);
+		var zdravniki = najdiZdravnike(obmocje);
+		$("#previous").attr('class', 'disabled');
+		if(zdravniki.length<=5){
+			$("#next").attr('class', 'disabled');
+		}else{
+			$("#next").attr('class', 'enabled');
+		}
+		//console.log(zdravniki.length);
+		var zdravnikiNaStrani = najdiNaStrani(zdravniki, 0);
+		//for(var i=0; i<zdravnikiNaStrani.length; i++) {
+		//	console.log(zdravnikiNaStrani[i]);
+		//}
+		vstaviZdravnikeNaStrani(zdravnikiNaStrani);
+		$("#zdravniki").show();
+	});
+	$("#zdravnik1").click(function( event ) {
+		var zdravnik = $("#zdravnik1").text();
+		var adresa = $("#adresa1").text();
+		//console.log(adresa);
+		oznaciNaMapi(zdravnik, adresa);
+	});
+	$("#zdravnik2").click(function( event ) {
+		var zdravnik = $("#zdravnik2").text();
+		var adresa = $("#adresa2").text();
+		//console.log(adresa);
+		oznaciNaMapi(zdravnik, adresa);
+	});
+	$("#zdravnik3").click(function( event ) {
+		var zdravnik = $("#zdravnik3").text();
+		var adresa = $("#adresa3").text();
+		//console.log(adresa);
+		oznaciNaMapi(zdravnik, adresa);
+	});
+	$("#zdravnik4").click(function( event ) {
+		var zdravnik = $("#zdravnik4").text();
+		var adresa = $("#adresa4").text();
+		//console.log(adresa);
+		oznaciNaMapi(zdravnik, adresa);
+	});
+	$("#zdravnik5").click(function( event ) {
+		var zdravnik = $("#zdravnik5").text();
+		var adresa = $("#adresa5").text();
+		//console.log(adresa);
+		oznaciNaMapi(zdravnik, adresa);
 	});
 });

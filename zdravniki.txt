@@ -1,0 +1,315 @@
+Domagoj Jugović,Nevrokirurgija, Zaloška cesta 2  1000 Ljubljana 
+Aleš Vesnaver,Maksilofacialna kirurgija, Zaloška cesta 2  1000 Ljubljana 
+Mateja Kaja Ježovnik,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Olga Lonec Pogačar,Družinska medicina, Zdravstveni dom za študente univerze v Ljubljani Aškerčeva cesta 4  1000 Ljubljana 
+Marko Pokorn,Infektologija , Pediatrija, Zaloška cesta 2  1000 Ljubljana 
+Mojca Miholič,Družinska medicina, Zdravstveni dom za študente univerze v Ljubljani Aškerčeva cesta 4  1000 Ljubljana 
+Helena Ban Frangež,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Xhevat Lumi,Oftalmologija, Zaloška cesta 2  1000 Ljubljana 
+Ivan Mitrović,Družinska medicina, Maistrova ulica 22  2230 Lenart v Slovenskih goricah 
+Nives Kavšek,Fizikalna in rehabilitacijska medicina, Topliška 35  8250 Brežice 
+Boštjan Sluga,Splošna kirurgija, Zaloška cesta 2  1000 Ljubljana 
+Borut Kobal,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Ladislav Golouh,Družinska medicina, Pod gozdom c. I/14  1290 Grosuplje 
+Irena Kirar Fazarinc,Ginekologija in porodništvo, Zdravstveni dom za študente univerze v Ljubljani Aškerčeva cesta 4  1000 Ljubljana 
+Matija Kozak,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Aleš Ambrožič,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Yasmin Marianna Hunt,Abdominalna kirurgija, Rožna Dolina cesta IV 45  1000 Ljubljana 
+Matevž Srpčič,Torakalna kirurgija, Zaloška cesta 2  1000 Ljubljana 
+Borut Kobal,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Ivan Mitrović,Družinska medicina, Maistrova ulica 22  2230 Lenart v Slovenskih goricah 
+Gorazd Bunc,Nevrokirurgija, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Boštjan Sluga,Splošna kirurgija, Zaloška cesta 2  1000 Ljubljana 
+Miha Kočar,Maksilofacialna kirurgija, Zaloška cesta 2  1000 Ljubljana 
+Tomaž Tomaževič,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Janez Ravnik,Nevrokirurgija, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Damjan Vidovič,Torakalna kirurgija, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Senta Frol,Nevrologija, Zaloška cesta 2  1000 Ljubljana 
+Olivera Milanovič,Ginekologija in porodništvo, Oblakova ulica 5, 3000 Celje  3000 Celje 
+Marko Došen,Ginekologija in porodništvo, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Kristina Drusany Starič,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Nives Avancini,Oftalmologija, Polje 40  6310 Izola 
+Robert Blumauer,Kardiovaskularna kirurgija, Zaloška cesta 2  1000 Ljubljana 
+Irena Hočevar Boltežar,Otorinolaringologija, Zaloška cesta 2  1000 Ljubljana 
+Simon Stopar,Otorinolaringologija, Polje 40  6310 Izola 
+Peter Zorman,Plastična, rekonstrukcijska in estetska kirurgija, Zaloška cesta 2  1000 Ljubljana 
+Zvezdan Pirtošek,Nevrologija, Zaloška cesta 2  1000 Ljubljana 
+Damjan Radosavljevič,Ortopedska kirurgija, Zaloška cesta 2  1000 Ljubljana 
+Seyed Yousef Ardebili,Nevrokirurgija, Zaloška cesta 2  1000 Ljubljana 
+Terezija Kavčič,Ginekologija in porodništvo, Celovška cesta 93  1000 Ljubljana 
+Domagoj Jugović,Nevrokirurgija, Zaloška cesta 2  1000 Ljubljana 
+Blaž Kosmač,Pediatrija, Zaloška cesta 2  1000 Ljubljana 
+Marko Došen,Ginekologija in porodništvo, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Bojan Tršinar,Urologija, Zaloška cesta 2  1000 Ljubljana 
+Andreja Smajila,Ginekologija in porodništvo, Polje 40  6310 Izola 
+Katarina Osolnik,Pnevmologija, Interna medicina, Golnik 36  4204 Golnik 
+Samo Plut,Gastroenterologija, Zaloška cesta 2  1000 Ljubljana 
+Vid Zgonc,Nevrologija, Zaloška cesta 2  1000 Ljubljana 
+Diana Gvardijančič,Splošna kirurgija, Zaloška cesta 2  1000 Ljubljana 
+Igor Frangež,Travmatologija, Zaloška cesta 2  1000 Ljubljana 
+Anton Vrhovec,Urologija, Zaloška cesta 2  1000 Ljubljana 
+Iztok Fošnarič,Otorinolaringologija, Zaloška cesta 2  1000 Ljubljana 
+Andrej Vogler,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Boštjan Matos,Nevrokirurgija, Zaloška cesta 2  1000 Ljubljana 
+Nika Lalek,Pnevmologija, Golnik 36  4204 Golnik 
+Katja Jakopič,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Špela Lenardič,Družinska medicina, Stara cesta 10  4220 Škofja Loka 
+Franc Kramer,Urologija, Gosposvetska cesta 1  2380 Slovenj Gradec 
+Alenka Zupančič Pridigar,Ginekologija in porodništvo, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Petra Eržen Vrlič,Ginekologija in porodništvo, Metelkova 9  1000 Ljubljana 
+Robert Bajuk,Pediatrija, Celjska cesta 16  3240 Šmarje pri Jelšah 
+Andrej Vranič,Nevrokirurgija, Zaloška cesta 2  1000 Ljubljana 
+Štefan Grosek,Intenzivna medicina, Pediatrija, Zaloška cesta 2  1000 Ljubljana 
+Borut Drnovšek,Interna medicina, Rudarska cesta 9  1420 Trbovlje 
+Rado Pregelj,Nevrokirurgija, Zaloška cesta 2  1000 Ljubljana 
+Mirjana Miksić,Pediatrija, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Eva Cedilnik Gorup,Družinska medicina, Mestni trg 2  1230 Domžale 
+Borut Drnovšek,Interna medicina, Rudarska cesta 9  1420 Trbovlje 
+Nataša Ihan Hren,Maksilofacialna kirurgija, Zaloška cesta 2  1000 Ljubljana 
+Jerneja Vidmar,Plastična, rekonstrukcijska in estetska kirurgija, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Aleš Fischinger,Travmatologija, Zaloška cesta 2  1000 Ljubljana 
+Jerneja Vidmar,Plastična, rekonstrukcijska in estetska kirurgija, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Zvonimira Grošelj,Pediatrija, Prvomajska 5  1000 Ljubljana 
+Vida Janežič,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Matej Kastelec,Splošna kirurgija, Zaloška cesta 2  1000 Ljubljana 
+Koraljka Skračić Smrekar,Splošna kirurgija, Šmihelska cesta 1  8000 Novo mesto  
+Jerneja Vidmar,Plastična, rekonstrukcijska in estetska kirurgija, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Jernej Benedik,Internistična onkologija, Zaloška cesta 2  1000 Ljubljana 
+Astrid Djurišić,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Andrej Zore,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Borut Drnovšek,Interna medicina, Rudarska cesta 9  1420 Trbovlje 
+Roman Bošnjak,Nevrokirurgija, Zaloška cesta 2  1000 Ljubljana 
+Vladan Stanojković,Otorinolaringologija, Polje 40  6310 Izola 
+Vladimir Senekovič,Splošna kirurgija, Zaloška cesta 2  1000 Ljubljana 
+Matija Barbič,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Uroš Smrdel,Onkologija z radioterapijo, Zaloška cesta 2  1000 Ljubljana 
+Dragica Resman,Psihiatrija, Begunje 55  4275 Begunje na Gorenjskem 
+Uroš Smrdel,Onkologija z radioterapijo, Zaloška cesta 2  1000 Ljubljana 
+Dragica Resman,Psihiatrija, Begunje 55  4275 Begunje na Gorenjskem 
+Primož Povhe,Ortopedska kirurgija, Černelčeva cesta 15  8250 Brežice 
+Martina Jarc Vidmar,Oftalmologija, Zaloška cesta 2  1000 Ljubljana 
+David Neubauer,Otroška nevrologija, Pediatrija, Zaloška cesta 2  1000 Ljubljana 
+Marko Šluga,Interna medicina, Cesta maršala Tita 112  4270 Jesenice 
+Radmila Lazić,Interna medicina, Šmihelska cesta 1  8000 Novo mesto  
+Ksenija Geršak,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Radmila Lazić,Interna medicina, Šmihelska cesta 1  8000 Novo mesto  
+Simon Kovač,Ortopedska kirurgija, Jadranska cesta 31  6280 Ankaran 
+Alojzija Hočevar,Revmatologija, Zaloška cesta 2  1000 Ljubljana 
+Boštjan Lovšin,Ginekologija in porodništvo, Polje 40  6310 Izola 
+Jure Koprivšek,Psihiatrija, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Vida Guna Bajuk,Nevrologija, Zaloška cesta 2  1000 Ljubljana 
+Satar Baghrizabehi,Oftalmologija, Ulica dr. Vrbnjaka 6  9000 Murska Sobota 
+Janez Rebol,Otorinolaringologija, Vinarska ulica 6  2000 Maribor 
+Ksenija Kozorog,Pediatrija, Trg svobode 14  8290 Sevnica 
+Peter Ješe,Ortopedska kirurgija, Cesta maršala Tita 112  4270 Jesenice 
+Barbara Pregl,Družinska medicina, Zdravstveni dom za študente univerze v Ljubljani Aškerčeva cesta 4  1000 Ljubljana 
+Jasna Kuhelj Recer,Ginekologija in porodništvo, Zdravstveni dom za študente univerze v Ljubljani Aškerčeva cesta 4  1000 Ljubljana 
+Gabrijela Simetinger,Ginekologija in porodništvo, Šmihelska cesta 1  8000 Novo mesto  
+Ticijana Prijon,Družinska medicina, Prvomajska 5  1000 Ljubljana 
+Hildegard Meler,Otorinolaringologija, Ulica dr. Vrbnjaka 6  9000 Murska Sobota 
+Boris Poberaj,Ortopedska kirurgija, Jadranska cesta 31  6280 Ankaran 
+Marija Rebolj Stare,Ginekologija in porodništvo, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Domen Ribnikar,Internistična onkologija, Zaloška cesta 2  1000 Ljubljana 
+Marjeta Vovk,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Brigita Švab,Splošna kirurgija, Zdraviliški trg 9   3250 Rogaška Slatina 
+Polona Krumpak,Družinska medicina, Cesta Leona Dobrotinška 3b  3230 Šentjur 
+Stanislav Mijajlović,Ginekologija in porodništvo, Šmihelska cesta 1  8000 Novo mesto  
+Dragan Kovačič,Interna medicina, Oblakova ulica 5, 3000 Celje  3000 Celje 
+Brigita Švab,Splošna kirurgija, Zdraviliški trg 9   3250 Rogaška Slatina 
+Petra Rupar,Splošna kirurgija, Cesta maršala Tita 112  4270 Jesenice 
+Boris Poberaj,Ortopedska kirurgija, Jadranska cesta 31  6280 Ankaran 
+Marjeta Vovk,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Marjeta Vovk,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Leon Herman,Čeljustna in zobna ortopedija, Jurčkova cesta 233  1000 Ljubljana 
+Jurij Matija Kališnik,Kardiovaskularna kirurgija, Zaloška cesta 2  1000 Ljubljana 
+Nataša Marčun Varda,Pediatrija, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Dragan Kovačič,Interna medicina, Oblakova ulica 5, 3000 Celje  3000 Celje 
+Zorica Milenković,Pediatrija, Tovarniška cesta 3  5270 Ajdovščina 
+Robert Pogorevc,Pediatrija, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Majda Joras,Interna medicina, Zaloška cesta 2  1000 Ljubljana  
+Marija Rebolj Stare,Ginekologija in porodništvo, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Boris Pavlin,Ortopedska kirurgija, Jadranska cesta 31  6280 Ankaran 
+Irena Oblak,Onkologija z radioterapijo, Zaloška cesta 2  1000 Ljubljana 
+Robert Pogorevc,Pediatrija, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Stanko Pušenjak,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Zorica Milenković,Pediatrija, Tovarniška cesta 3  5270 Ajdovščina 
+Majda Joras,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Snežna Košir Paulin,Onkologija z radioterapijo, Zaloška cesta 2  1000 Ljubljana 
+Majda Joras,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Irena Oblak,Onkologija z radioterapijo, Zaloška cesta 2  1000 Ljubljana 
+Stanko Pušenjak,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Marija Menih,Nevrologija, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Brigita Tršan Lesar,Pediatrija, Mestni trg 2  1230 Domžale 
+Boris Pavlin,Ortopedska kirurgija, Jadranska cesta 31  6280 Ankaran 
+Anton Zaletel,Urologija, Šmihelska cesta 1  8000 Novo mesto  
+Andrej Kansky,Maksilofacialna kirurgija, Zaloška cesta 2  1000 Ljubljana 
+Irena Oblak,Onkologija z radioterapijo, Zaloška cesta 2  1000 Ljubljana 
+Francka Šmid Borovnik,Družinska medicina, Ob Suhi 11  2390 Ravne na Koroškem 
+Majda Joras,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Boris Pavlin,Ortopedska kirurgija, Jadranska cesta 31  6280 Ankaran 
+Majda Gaberšek,Medicina dela, prometa in športa, Pod gozdom c. I/14  1290 Grosuplje 
+Miha Lučovnik,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Marija Menih,Nevrologija, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Stanko Pušenjak,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Stanko Pušenjak,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Miha Lučovnik,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Jakob Gubenšek,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Stanislav Mijajlović,Ginekologija in porodništvo, Šmihelska cesta 1  8000 Novo mesto  
+Iva Kalinšek,Pediatrija, Prvomajska 5  1000 Ljubljana 
+Edita Jusić,Pediatrija, Kandijska cesta 4  8000 Novo mesto  
+Matjaž Horvat,Abdominalna kirurgija, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Boris Pavlin,Ortopedska kirurgija, Jadranska cesta 31  6280 Ankaran 
+Miha Lučovnik,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Robert Šifrer,Otorinolaringologija, Zaloška cesta 2  1000 Ljubljana 
+Jakob Gubenšek,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Miran Rems,Splošna kirurgija, Cesta maršala Tita 112  4270 Jesenice 
+Majda Gaberšek,Medicina dela, prometa in športa, Pod gozdom c. I/14  1290 Grosuplje 
+Snežna Košir Paulin,Onkologija z radioterapijo, Zaloška cesta 2  1000 Ljubljana 
+Sabina Senčar,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Irena Oblak,Onkologija z radioterapijo, Zaloška cesta 2  1000 Ljubljana 
+Polona Krumpak,Družinska medicina, Cesta Leona Dobrotinška 3b  3230 Šentjur 
+Boris Pavlin,Ortopedska kirurgija, Jadranska cesta 31  6280 Ankaran 
+Snežna Košir Paulin,Onkologija z radioterapijo, Zaloška cesta 2  1000 Ljubljana 
+Sabina Senčar,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Lili Mikecin,Pediatrija, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Matjaž Horvat,Abdominalna kirurgija, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Majda Joras,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Matjaž Voršič,Nevrokirurgija, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Snežna Košir Paulin,Onkologija z radioterapijo, Zaloška cesta 2  1000 Ljubljana 
+Jernej Pajek,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Muhamed Ikanović,Splošna kirurgija, Zaloška cesta 2  1000 Ljubljana 
+Matjaž Horvat,Abdominalna kirurgija, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Pepita Taneska,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Matjaž Špan,Kardiovaskularna kirurgija, Zaloška cesta 2  1000 Ljubljana 
+Mateja Jeranko,Pediatrija, Stara cesta 10  4220 Škofja Loka 
+Aleš Blinc,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Stanko Pušenjak,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Lorna Zadravec Zaletel,Onkologija z radioterapijo, Zaloška cesta 2  1000 Ljubljana 
+Ivan Radan,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Francka Šmid Borovnik,Družinska medicina, Ob Suhi 11  2390 Ravne na Koroškem 
+Jernej Pajek,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Matjaž Horvat,Abdominalna kirurgija, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Snežna Košir Paulin,Onkologija z radioterapijo, Zaloška cesta 2  1000 Ljubljana 
+Sabina Senčar,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Stanko Pušenjak,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Jernej Pajek,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Snežana Žarković,Anesteziologija, reanimatologija in perioperativna intenzivna medicina, Zaloška cesta 2  1000 Ljubljana 
+Matjaž Horvat,Abdominalna kirurgija, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Iva Kalinšek,Pediatrija, Prvomajska 5  1000 Ljubljana 
+Dean Rumpf,Abdominalna kirurgija, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Igor But,Ginekologija in porodništvo, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Gregor Hlebič,Urologija, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Janez Mohar,Ortopedska kirurgija, Jadranska cesta 31  6280 Ankaran 
+Rihard Trebše,Ortopedska kirurgija, Jadranska cesta 31  6280 Ankaran 
+Tomaž Štupnik,Torakalna kirurgija, Zaloška cesta 2  1000 Ljubljana 
+Tomaž Podnar,Pediatrija, Zaloška cesta 2  1000 Ljubljana 
+Robert Mulh,Plastična, rekonstrukcijska in estetska kirurgija, Šmihelska cesta 1  8000 Novo mesto  
+Sara Korošec,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Andrej Gadžijev,Travmatologija, Zaloška cesta 2  1000 Ljubljana 
+Samo Vesel,Pediatrija, Zaloška cesta 2  1000 Ljubljana 
+Franc Šalamun,Oftalmologija, Ulica Vinka Vodopivca 21  5000 Nova Gorica 
+Franc Šalamun,Oftalmologija, Ulica Vinka Vodopivca 21  5000 Nova Gorica 
+Samo Vesel,Pediatrija, Zaloška cesta 2  1000 Ljubljana 
+Mile Majstorović,Travmatologija, Zaloška cesta 2  1000 Ljubljana 
+Andrej Tratnjek,Ginekologija in porodništvo, Cesta maršala Tita 112  4270 Jesenice 
+Boštjan Birk,Družinska medicina, Partizanska cesta 16  2380 Slovenj Gradec 
+Vida Gavrič Lovrec,Ginekologija in porodništvo, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Miroslav Vujasinović,Interna medicina, Gosposvetska cesta 1  2380 Slovenj Gradec 
+Andreja Vinšek Grilj,Družinska medicina, Gregorčičeva cesta 8  6250 Ilirska Bistrica 
+Alenka Božič Žibert,Interna medicina, Černelčeva cesta 15  8250 Brežice 
+Vojko Didanovič,Otorinolaringologija, Zaloška cesta 2  1000 Ljubljana 
+Alenka Božič Žibert,Interna medicina, Černelčeva cesta 15  8250 Brežice 
+Erik Brecelj,Splošna kirurgija, Zaloška cesta 2  1000 Ljubljana 
+Nataša Tul Mandić,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Tea Jedlovčnik Štrumbelj,Plastična, rekonstrukcijska in estetska kirurgija, Šmihelska cesta 1  8000 Novo mesto  
+Janez Podobnik,Ortopedska kirurgija, Zdraviliški trg 9   3250 Rogaška Slatina 
+Breda Škrbinc,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Ljiljana Ljepović ,Interna medicina, Pod skalo 4  4260 Bled 
+Boris Gašpirc,Parodontologija, Zobne bolezni in endodontija, Kortykova 2   1000 Ljubljana 
+Juš Kšela,Kardiovaskularna kirurgija, Zaloška cesta 2  1000 Ljubljana 
+Ana Marija Golja,Otroško in preventivno zobozdravstvo, Mestni trg 2  1230 Domžale 
+Dejan Hermann,Travmatologija, Zaloška cesta 2  1000 Ljubljana 
+Sanja Radić Lugarić,Pediatrija, Černelčeva cesta 15  8250 Brežice 
+Robert Janez Cirman,Ortopedska kirurgija, Jadranska cesta 31  6280 Ankaran 
+Aljoša Kandus,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Aljoša Kandus,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Milena Senica Verbič,Splošna kirurgija, Oblakova ulica 5, 3000 Celje  3000 Celje 
+Jakob Koren,Ginekologija in porodništvo, Oblakova ulica 5, 3000 Celje  3000 Celje 
+Maja  Lampelj,Ginekologija in porodništvo, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Maja Merkun,Ginekologija in porodništvo, Rudarska cesta 9  1420 Trbovlje 
+Matjaž Sever,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Rasto Stok,Ortopedska kirurgija, Rožna Dolina cesta IV 45  1000 Ljubljana 
+Suzana Milanović Ravter,Družinska medicina, Prvomajska ulica 1  2000 Maribor 
+Jana Golub,Družinska medicina, ZD Slovenska Bistrica Partizanska ulica 30  2310 Slovenska Bistrica 
+Barbara Šajina Stritar,Ginekologija in porodništvo, Zaloška cesta 2  1000 Ljubljana 
+Tanja Rauter Pungartnik,Fizikalna in rehabilitacijska medicina, Cesta na Roglo 15   3214 Zreče 
+Rado Janša,Gastroenterologija, Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Nataša Rutar,Anesteziologija, reanimatologija in perioperativna intenzivna medicina, Cesta maršala Tita 112  4270 Jesenice 
+Mojca Jensterle Sever,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Boris Onišak,Otorinolaringologija, Ulica dr. Vrbnjaka 6  9000 Murska Sobota 
+Damjan Justinek,Interna medicina, Bolnišnica Topolšica, Topolšica 61  3326 Topolšica 
+Miran Kolar,Urgentna medicina, Gregorčičeva ulica 5  3000 Celje 
+Branka Krek Petrina,Otorinolaringologija, Cesta maršala Tita 112  4270 Jesenice 
+Radoslav Marčan,Ortopedska kirurgija, Jadranska cesta 31  6280 Ankaran 
+Saša Rakić,Ginekologija in porodništvo, UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Nina Erjavc,Infektologija , UKC Maribor, Ljubljanska ulica 5  2000 Maribor 
+Tadeja Škerl Pahernik,Družinska medicina, Zdravstveni dom za študente univerze v Ljubljani Aškerčeva cesta 4  1000 Ljubljana 
+Vesna Stropnik,Družinska medicina, Ob Suhi 11  2390 Ravne na Koroškem 
+Zoran Marij Arnež,Plastična, rekonstrukcijska in estetska kirurgija, Splošna kirurgija, Ulica Vinka Vodopivca 21  5000 Nova Gorica 
+Aleksandar Godić,Dermatovenerologija, Zaloška cesta 2  1000 Ljubljana 
+Irena Bajc,Družinska medicina, Celjska cesta 16  3240 Šmarje pri Jelšah 
+Klemen Marovt,Družinska medicina, Gregorčičeva ulica 5  3000 Celje 
+Vesna Stropnik,Družinska medicina, Ob Suhi 11  2390 Ravne na Koroškem 
+Irena Bajc,Družinska medicina, Celjska cesta 16  3240 Šmarje pri Jelšah 
+Klemen Marovt,Družinska medicina, Gregorčičeva ulica 5  3000 Celje 
+Matjaž Turel,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Robert Kordič,Urologija, Cesta maršala Tita 112  4270 Jesenice 
+Matjaž Turel,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Robert Kordič,Urologija, Cesta maršala Tita 112  4270 Jesenice 
+Jadranka Domazet Fink,Ginekologija in porodništvo, Prvomajska 5  1000 Ljubljana 
+Tadeja Kotar,Infektologija , Zaloška cesta 2  1000 Ljubljana 
+Ana Pekle Golež,Anesteziologija, reanimatologija in perioperativna intenzivna medicina, Zaloška cesta 2  1000 Ljubljana 
+Tadeja Kotar,Infektologija , Zaloška cesta 2  1000 Ljubljana 
+Ana Pekle Golež,Anesteziologija, reanimatologija in perioperativna intenzivna medicina, Zaloška cesta 2  1000 Ljubljana 
+Jadranka Domazet Fink,Ginekologija in porodništvo, Prvomajska 5  1000 Ljubljana 
+Ivana Sokolovic,Interna medicina, Oblakova ulica 5, 3000 Celje  3000 Celje 
+Matej Drobnič,Ortopedska kirurgija, Zaloška cesta 2  1000 Ljubljana 
+Neven Kruljac,Ortopedska kirurgija, Jadranska cesta 31  6280 Ankaran 
+Marko Lovšin,Urologija, Zaloška cesta 2  1000 Ljubljana 
+Robert Kordič,Urologija, Cesta maršala Tita 112  4270 Jesenice 
+Neven Kruljac,Ortopedska kirurgija, Jadranska cesta 31  6280 Ankaran 
+Ivana Sokolovic,Interna medicina, Oblakova ulica 5, 3000 Celje  3000 Celje 
+Irena Bajc,Družinska medicina, Celjska cesta 16  3240 Šmarje pri Jelšah 
+Barbara Krevel,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Ivana Sokolovic,Interna medicina, Oblakova ulica 5, 3000 Celje  3000 Celje 
+Zoran Marij Arnež,Plastična, rekonstrukcijska in estetska kirurgija, Splošna kirurgija, Ulica Vinka Vodopivca 21  5000 Nova Gorica 
+Neven Kruljac,Ortopedska kirurgija, Jadranska cesta 31  6280 Ankaran 
+Tjaša Šubic,Interna medicina, Golnik 36  4204 Golnik 
+Barbara Krevel,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Irena Bajc,Družinska medicina, Celjska cesta 16  3240 Šmarje pri Jelšah 
+Suzana Popov,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Dušan Ačkun,Radiologija, Oblakova ulica 5, 3000 Celje  3000 Celje 
+Peter Kadiš,Sodna medicina, Gosposvetska cesta 1  2380 Slovenj Gradec 
+Martin Tretjak,Interna medicina, Gosposvetska cesta 1  2380 Slovenj Gradec 
+Mihael Čavlek,Radiologija, Zaloška cesta 2  1000 Ljubljana 
+Branko Brodnik,Splošna kirurgija, Cesta maršala Tita 112  4270 Jesenice 
+Zdenka Čerk Speiser,Interna medicina, Rudarska cesta 9  1420 Trbovlje 
+Neven Kruljac,Ortopedska kirurgija, Jadranska cesta 31  6280 Ankaran 
+Aleksandar Godić,Dermatovenerologija, Zaloška cesta 2  1000 Ljubljana 
+Nataša Brglez Jurečič,Interna medicina, Rudarska cesta 9  1420 Trbovlje 
+Jadranka Domazet Fink,Ginekologija in porodništvo, Prvomajska 5  1000 Ljubljana 
+Barbara Krevel,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Dušan Ačkun,Radiologija, Oblakova ulica 5, 3000 Celje  3000 Celje 
+Suzana Popov,Interna medicina, Zaloška cesta 2  1000 Ljubljana 
+Peter Kadiš,Sodna medicina, Gosposvetska cesta 1  2380 Slovenj Gradec 
+Martin Tretjak,Interna medicina, Gosposvetska cesta 1  2380 Slovenj Gradec 
+Zdenka Čerk Speiser,Interna medicina, Rudarska cesta 9  1420 Trbovlje 
+Marjan Koršič,Nevrokirurgija, Zaloška cesta 2  1000 Ljubljana 
+Mihael Čavlek,Radiologija, Zaloška cesta 2  1000 Ljubljana 
+Majda Joras,Interna medicina, Zdravstveni dom za študente univerze v Ljubljani Aškerčeva cesta 4  1000 Ljubljana 
+Majda Joras,Interna medicina, Zdravstveni dom za študente univerze v Ljubljani Aškerčeva cesta 4  1000 Ljubljana 
+Petra Mesec Rodi,Družinska medicina, Stara cesta 10  4220 Škofja Loka 
+Dušan Ačkun,Radiologija, Oblakova ulica 5, 3000 Celje  3000 Celje 
+Branka Stražišar,Anesteziologija, reanimatologija in perioperativna intenzivna medicina, Zaloška cesta 2  1000 Ljubljana 
+Janko Popovič,Ortopedska kirurgija, Peričeva ulica 35  1000 Ljubljana 
+Franko Krbavčič Bandelj,Anesteziologija, reanimatologija in perioperativna intenzivna medicina, Polje 40  6310 Izola
