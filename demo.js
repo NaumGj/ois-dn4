@@ -369,12 +369,17 @@ function vstaviZdravnikeNaStrani(zdravnikiNaStrani){
 }
 
 function oznaciNaMapi(zdravnik, adresa){
-	x = navigator.geolocation;
 
-	x.getCurrentPosition(success, failure);
+	if(adresa !== "prvic"){
+		mapa(zdravnik);
+	}else{
+		x = navigator.geolocation;
+
+		x.getCurrentPosition(success, failure);
+	}
 
 	function success(position) {
-		if(adresa === "prvic") {
+		if (adresa === "prvic") {
 			var lat = position.coords.latitude;
 			var long = position.coords.longitude;
 
@@ -395,9 +400,10 @@ function oznaciNaMapi(zdravnik, adresa){
 				position: coords,
 				icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
 			});
+		}
+		}
 
-		}else {
-
+		function mapa() {
 			geo(adresa);
 			function geo(address) {
 				//for (var i = 0; i < address.length; i++) {
@@ -427,18 +433,17 @@ function oznaciNaMapi(zdravnik, adresa){
 				markersArray.push(marker);
 				oms.addMarker(marker);
 				var iw = new google.maps.InfoWindow();
-				oms.addListener('click', function(marker, event) {
+				oms.addListener('click', function (marker, event) {
 					iw.setContent(zdravnik);
 					iw.open(map, marker);
 				});
-				oms.addListener('spiderfy', function(markers) {
+				oms.addListener('spiderfy', function (markers) {
 					iw.close();
 				});
-				oms.addListener('unspiderfy', function(markers) {
+				oms.addListener('unspiderfy', function (markers) {
 					iw.close();
 				});
 			}
-		}
 	}
 
 	function failure(){
