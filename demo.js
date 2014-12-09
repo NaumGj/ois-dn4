@@ -431,7 +431,7 @@ function oznaciNaMapi(zdravnik, adresa){
 			markersArray.push(marker);
 			oms.addMarker(marker);
 			var iw = new google.maps.InfoWindow({
-				content: zdravnik
+				content: '<div style="width: 150px;">'+zdravnik+'</div>'
 			});
 			google.maps.event.addListener(marker, 'click', function () {
 				iw.open(map, marker);
