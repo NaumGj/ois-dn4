@@ -495,26 +495,31 @@ function obravnavajVisinoInTezo(visina, teza){
 			$("#form-visina").attr("class", "has-warning");
 			$("#form-teza").attr("class", "has-warning");
 			$("#itm").text("Zmerna nedohranjenost");
+			$("#itm").attr("class", "label label-warning warningspan");
 			$("#itm").show();
 		}else if(indeksTelesneMase>17 && indeksTelesneMase<18.5){
 			$("#form-visina").attr("class", "has-warning");
 			$("#form-teza").attr("class", "has-warning");
 			$("#itm").text("Blaga nedohranjenost");
+			$("#itm").attr("class", "label label-warning warningspan");
 			$("#itm").show();
 		}else if(indeksTelesneMase>25 && indeksTelesneMase<=30){
 			$("#form-visina").attr("class", "has-warning");
 			$("#form-teza").attr("class", "has-warning");
 			$("#itm").text("Blaga nedohranjenost");
+			$("#itm").attr("class", "label label-warning warningspan");
 			$("#itm").show();
 		}else if(indeksTelesneMase>30 && indeksTelesneMase<=35){
 			$("#form-visina").attr("class", "has-warning");
 			$("#form-teza").attr("class", "has-warning");
 			$("#itm").text("Debelost stopnje I");
+			$("#itm").attr("class", "label label-warning warningspan");
 			$("#itm").show();
 		}else if(indeksTelesneMase>35 && indeksTelesneMase<=40) {
 			$("#form-visina").attr("class", "has-warning");
 			$("#form-teza").attr("class", "has-warning");
 			$("#itm").text("Debelost stopnje II");
+			$("#itm").attr("class", "label label-warning warningspan");
 			$("#itm").show();
 		}else if(indeksTelesneMase>40){
 			$("#form-visina").attr("class", "has-warning");
@@ -533,12 +538,28 @@ function obravnavajVisinoInTezo(visina, teza){
 function obravnavajTemperaturo(temperatura){
 	if(temperatura){
 		temperatura = parseFloat(temperatura);
-		if(temperatura>=36 && temperatura<=37.5){
+		if(temperatura >= 36 && temperatura <= 37.5){
 			$("#form-temperatura").attr("class", "has-success");
 			$("#temperatura").hide();
-		}else{
+		}else if(temperatura < 35){
 			$("#form-temperatura").attr("class", "has-warning");
-			$("#temperatura").text("Temperatura");
+			$("#temperatura").text("Hipotermija");
+			$("#temperatura").attr("class", "label label-danger warningspan");
+			$("#temperatura").show();
+		}else if(temperatura >= 35 && temperatura < 36){
+			$("#form-temperatura").attr("class", "has-warning");
+			$("#temperatura").text("Znižana temperatura");
+			$("#temperatura").attr("class", "label label-warning warningspan");
+			$("#temperatura").show();
+		}else if(temperatura > 37.5 && temperatura < 40){
+			$("#form-temperatura").attr("class", "has-warning");
+			$("#temperatura").text("Hipertermija");
+			$("#temperatura").attr("class", "label label-warning warningspan");
+			$("#temperatura").show();
+		}else if(temperatura >= 40){
+			$("#form-temperatura").attr("class", "has-warning");
+			$("#temperatura").text("Hiperpireksija");
+			$("#temperatura").attr("class", "label label-danger warningspan");
 			$("#temperatura").show();
 		}
 	}else{
@@ -553,9 +574,30 @@ function obravnavajSistolicni(sistolicni){
 		if(sistolicni>=90 && sistolicni<=120){
 			$("#form-sistolicni").attr("class", "has-success");
 			$("#sistolicni").hide();
-		}else{
+		}else if(sistolicni <90){
 			$("#form-sistolicni").attr("class", "has-warning");
-			$("#sistolicni").text("Sistolicni");
+			$("#sistolicni").text("Hipotenzija (sistolični krvni tlak)");
+			$("#sistolicni").attr("class", "label label-danger warningspan");
+			$("#sistolicni").show();
+		}else if(sistolicni > 120 && sistolicni < 140){
+			$("#form-sistolicni").attr("class", "has-warning");
+			$("#sistolicni").text("Predhipertenzija (sistolični krvni tlak)");
+			$("#sistolicni").attr("class", "label label-warning warningspan");
+			$("#sistolicni").show();
+		}else if(sistolicni >=140 && sistolicni < 160){
+			$("#form-sistolicni").attr("class", "has-warning");
+			$("#sistolicni").text("Hipertenzija stopnje I (sistolični krvni tlak)");
+			$("#sistolicni").attr("class", "label label-warning warningspan");
+			$("#sistolicni").show();
+		}else if(sistolicni >= 160 && sistolicni < 180){
+			$("#form-sistolicni").attr("class", "has-warning");
+			$("#sistolicni").text("Hipertenzija stopnje II (sistolični krvni tlak)");
+			$("#sistolicni").attr("class", "label label-warning warningspan");
+			$("#sistolicni").show();
+		}else if(sistolicni >= 180){
+			$("#form-sistolicni").attr("class", "has-warning");
+			$("#sistolicni").text("Hipertenzija - takojšnje ukrepanje (sistolični krvni tlak)");
+			$("#sistolicni").attr("class", "label label-danger warningspan");
 			$("#sistolicni").show();
 		}
 	}else{
@@ -570,9 +612,30 @@ function obravnavajDiastolicni(diastolicni){
 		if(diastolicni>=60 && diastolicni<=80){
 			$("#form-diastolicni").attr("class", "has-success");
 			$("#diastolicni").hide();
-		}else{
+		}else if(diastolicni<60){
 			$("#form-diastolicni").attr("class", "has-warning");
-			$("#diastolicni").text("Diastolicni");
+			$("#diastolicni").text("Hipotenzija (diastolični krvni tlak)");
+			$("#diastolicni").attr("class", "label label-danger warningspan");
+			$("#diastolicni").show();
+		}else if(diastolicni > 80 && diastolicni < 90){
+			$("#form-diastolicni").attr("class", "has-warning");
+			$("#diastolicni").text("Predhipertenzija (diastolicni krvni tlak)");
+			$("#diastolicni").attr("class", "label label-warning warningspan");
+			$("#diastolicni").show();
+		}else if(diastolicni >= 90 && diastolicni < 100){
+			$("#form-diastolicni").attr("class", "has-warning");
+			$("#diastolicni").text("Hipertenzija stopnje I (diastolicni krvni tlak)");
+			$("#diastolicni").attr("class", "label label-warning warningspan");
+			$("#diastolicni").show();
+		}else if(diastolicni >= 100 && diastolicni < 110){
+			$("#form-diastolicni").attr("class", "has-warning");
+			$("#diastolicni").text("Hipertenzija stopnje II (diastolicni krvni tlak)");
+			$("#diastolicni").attr("class", "label label-warning warningspan");
+			$("#diastolicni").show();
+		}else if(diastolicni >= 110){
+			$("#form-diastolicni").attr("class", "has-warning");
+			$("#diastolicni").text("Hipertenzija - takojšnje ukrepanje (diastolicni krvni tlak)");
+			$("#diastolicni").attr("class", "label label-danger warningspan");
 			$("#diastolicni").show();
 		}
 	}else{
@@ -585,12 +648,17 @@ function obravnavajNasicenost(nasicenost){
 	if(nasicenost){
 		nasicenost = parseFloat(nasicenost);
 		if(nasicenost>=0 && nasicenost<=100) {
-			if (nasicenost >= 96 && nasicenost <= 100) {
+			if (nasicenost >= 96) {
 				$("#form-nasicenost").attr("class", "has-success");
 				$("#nasicenost").hide();
-			} else {
+			} else if(nasicenost > 90 && nasicenost < 96){
 				$("#form-nasicenost").attr("class", "has-warning");
-				$("#nasicenost").text("Nasicenost");
+				$("#nasicenost").text("Slaba nasicenost krvi s kisikom");
+				$("#nasicenost").show();
+			} else if(nasicenost <= 90){
+				$("#form-nasicenost").attr("class", "has-warning");
+				$("#nasicenost").text("Možnost za respiratorna odpoved - takojšnje ukrepanje");
+				$("#nasicenost").attr("class", "label label-danger warningspan");
 				$("#nasicenost").show();
 			}
 		}else{

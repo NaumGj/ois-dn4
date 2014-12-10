@@ -15,9 +15,19 @@
 	  		.btn {margin-top: 10px;}
 	  		.obvestilo {margin-left:10px;}
 			.warningspan {
-				display: none;
+				display: compact;
 				font-size: 14px;
 				line-height: 200%;
+			}
+			.seznam-zdravnikov:hover {
+				cursor: pointer;
+				background-color: aliceblue;
+			}
+			#previous:hover, #next:hover {
+				cursor: pointer;
+			}
+			.adrese-zdravnikov {
+				display: none;
 			}
 			#map {
 				width:100%;
@@ -99,23 +109,22 @@
 							<select class="form-control input" id="obmocje" style="width: 160px"><option value="nevrologija">Nevrologija</option><option value="otorinolaringologija">Otorinolaringologija</option></select><br>
 						</div>
 						<div id="zdravniki" class="col-lg-6 col-md-6 col-sm-6" style="display: none">
-							<a id="zdravnik1"></a><br>
-							<option id="adresa1" value="" style="display: none"></option>
-							<a id="zdravnik2"></a><br>
-							<option id="adresa2" value="" style="display: none"></option>
-							<a id="zdravnik3"></a><br>
-							<option id="adresa3" value="" style="display: none"></option>
-							<a id="zdravnik4"></a><br>
-							<option id="adresa4" value="" style="display: none"></option>
-							<a id="zdravnik5"></a><br>
-							<option id="adresa5" value="" style="display: none"></option>
+							<a id="zdravnik1" class="seznam-zdravnikov"></a><br>
+							<option id="adresa1" value="" class="adrese-zdravnikov"></option>
+							<a id="zdravnik2" class="seznam-zdravnikov"></a><br>
+							<option id="adresa2" value="" class="adrese-zdravnikov"></option>
+							<a id="zdravnik3" class="seznam-zdravnikov"></a><br>
+							<option id="adresa3" value="" class="adrese-zdravnikov"></option>
+							<a id="zdravnik4" class="seznam-zdravnikov"></a><br>
+							<option id="adresa4" value="" class="adrese-zdravnikov"></option>
+							<a id="zdravnik5" class="seznam-zdravnikov"></a><br>
+							<option id="adresa5" value="" class="adrese-zdravnikov"></option>
 							<ul class="pager pull-left">
 								<li id="previous" class="disabled"><a onclick="najdiPreviousPage()">Previous</a></li>
 								<li id="next" class="enabled"><a onclick="najdiNextPage()">Next</a></li>
 								<option id="strana" style="display: none;" value="0"></option>
 							</ul>
 						</div>
-						<div class="col-lg-12 col-md-12 col-sm-12" id="map"></div>
 						<div class="col-lg-12 col-md-12 col-sm-12" id="kriticne" class="row">
 							<span id="itm" class="label label-warning warningspan"></span>
 							<span id="temperatura" class="label label-warning warningspan"></span>
@@ -123,6 +132,7 @@
 							<span id="diastolicni" class="label label-warning warningspan"></span>
 							<span id="nasicenost" class="label label-warning warningspan"></span>
 						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12" id="map"></div>
 				  	</div>
 				</div>
 			</div>
