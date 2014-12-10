@@ -475,83 +475,132 @@ function clearOverlays() {
 	}
 	markersArray.length = 0;
 }
-//function najdiZdravniki(){
-//	x = navigator.geolocation;
-//
-//	x.getCurrentPosition(success, failure);
-//
-//	function success(position){
-//		var lat = position.coords.latitude;
-//		var long = position.coords.longitude;
-//
-//		var coords = new google.maps.LatLng(lat, long);
-//
-//		var mapOptions = {
-//			zoom: 13,
-//			center: coords,
-//			mapTypeId: google.maps.MapTypeId.ROADMAP
-//		}
-//
-//		var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-//
-//		var marker = new google.maps.Marker({map: map, position: coords, icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png', title: 'Pozdravljeni, svet!'});
-//
-//		var rawFile = new XMLHttpRequest();
-//		var zdravniki;
-//		rawFile.open("GET", "zdravniki.txt", false);
-//		rawFile.onreadystatechange = function () {
-//			if(rawFile.readyState === 4) {
-//				if(rawFile.status === 200 || rawFile.status == 0) {
-//					zdravniki = rawFile.responseText.split("\n");
-//				}
-//			}
-//		}
-//		rawFile.send(null);
-//		//console.log(zdravniki[0]);
-//
-//		var najblizje = [];
-//		for (int i=0; i<3; i++){
-//			najblizje[i]=1000;
-//		}
-//		var address = [];
-//		for(var i=0; i<30; i++) {
-//			address[i] = zdravniki[i].split(",")[2];
-//			//console.log(address);
-//		}
-//
-//		geo(address);
-//
-//		function geo(address) {
-//			for (var i = 0; i < address.length; i++) {
-//				curAddress = address[i];
-//				var geocoder = new google.maps.Geocoder();
-//				if(geocoder) {
-//					geocoder.geocode({'address': curAddress}, function (results, status) {
-//						if (status == google.maps.GeocoderStatus.OK) {
-//							vstaviMarker(results[0].geometry.location.lat(), results[0].geometry.location.lng());
-//						}else{
-//							alert("Geocode was not successful for the following reason: " + status);
-//						}
-//					});
-//				}
-//			}
-//		}
-//
-//		function vstaviMarker(lati, longi){
-//			var marker = new google.maps.Marker({
-//				map: map,
-//				position: new google.maps.LatLng(lati, longi),
-//				animation: google.maps.Animation.DROP
-//			});
-//		}
-//
-//	}
-//
-//	function failure(){
-//		$('#map').html("<p>Ni bilo mogoče najti vašo pozicijo! Omogocite da brskalnik sledi vašo pozicijo!</p>");
-//	}
-//
-//}
+
+function obravnavajVisinoInTezo(visina, teza){
+	if(visina && teza) {
+		visina = visina/100;
+		var indeksTelesneMase = teza / (visina * visina);
+		//console.log(indeksTelesneMase);
+		if (indeksTelesneMase>=18.5 && indeksTelesneMase<=25){
+			$("#form-visina").attr("class", "has-success");
+			$("#form-teza").attr("class", "has-success");
+			$("#itm").hide();
+		}else if (indeksTelesneMase<=16){
+			$("#form-visina").attr("class", "has-warning");
+			$("#form-teza").attr("class", "has-warning");
+			$("#itm").text("Huda nedohranjenost");
+			$("#itm").attr("class", "label label-danger warningspan");
+			$("#itm").show();
+		}else if(indeksTelesneMase>16 && indeksTelesneMase<=17){
+			$("#form-visina").attr("class", "has-warning");
+			$("#form-teza").attr("class", "has-warning");
+			$("#itm").text("Zmerna nedohranjenost");
+			$("#itm").show();
+		}else if(indeksTelesneMase>17 && indeksTelesneMase<18.5){
+			$("#form-visina").attr("class", "has-warning");
+			$("#form-teza").attr("class", "has-warning");
+			$("#itm").text("Blaga nedohranjenost");
+			$("#itm").show();
+		}else if(indeksTelesneMase>25 && indeksTelesneMase<=30){
+			$("#form-visina").attr("class", "has-warning");
+			$("#form-teza").attr("class", "has-warning");
+			$("#itm").text("Blaga nedohranjenost");
+			$("#itm").show();
+		}else if(indeksTelesneMase>30 && indeksTelesneMase<=35){
+			$("#form-visina").attr("class", "has-warning");
+			$("#form-teza").attr("class", "has-warning");
+			$("#itm").text("Debelost stopnje I");
+			$("#itm").show();
+		}else if(indeksTelesneMase>35 && indeksTelesneMase<=40) {
+			$("#form-visina").attr("class", "has-warning");
+			$("#form-teza").attr("class", "has-warning");
+			$("#itm").text("Debelost stopnje II");
+			$("#itm").show();
+		}else if(indeksTelesneMase>40){
+			$("#form-visina").attr("class", "has-warning");
+			$("#form-teza").attr("class", "has-warning");
+			$("#itm").text("Debelost stopnje III");
+			$("#itm").attr("class", "label label-danger warningspan");
+			$("#itm").show();
+		}
+	}else{
+		$("#form-visina").attr("class", "");
+		$("#form-teza").attr("class", "");
+		$("#itm").hide();
+	}
+}
+
+function obravnavajTemperaturo(temperatura){
+	if(temperatura){
+		temperatura = parseFloat(temperatura);
+		if(temperatura>=36 && temperatura<=37.5){
+			$("#form-temperatura").attr("class", "has-success");
+			$("#temperatura").hide();
+		}else{
+			$("#form-temperatura").attr("class", "has-warning");
+			$("#temperatura").text("Temperatura");
+			$("#temperatura").show();
+		}
+	}else{
+		$("#form-temperatura").attr("class", "");
+		$("#temperatura").hide();
+	}
+}
+
+function obravnavajSistolicni(sistolicni){
+	if(sistolicni){
+		sistolicni = parseFloat(sistolicni);
+		if(sistolicni>=90 && sistolicni<=120){
+			$("#form-sistolicni").attr("class", "has-success");
+			$("#sistolicni").hide();
+		}else{
+			$("#form-sistolicni").attr("class", "has-warning");
+			$("#sistolicni").text("Sistolicni");
+			$("#sistolicni").show();
+		}
+	}else{
+		$("#form-sistolicni").attr("class", "");
+		$("#sistolicni").hide();
+	}
+}
+
+function obravnavajDiastolicni(diastolicni){
+	if(diastolicni){
+		diastolicni = parseFloat(diastolicni);
+		if(diastolicni>=60 && diastolicni<=80){
+			$("#form-diastolicni").attr("class", "has-success");
+			$("#diastolicni").hide();
+		}else{
+			$("#form-diastolicni").attr("class", "has-warning");
+			$("#diastolicni").text("Diastolicni");
+			$("#diastolicni").show();
+		}
+	}else{
+		$("#form-diastolicni").attr("class", "");
+		$("#diastolicni").hide();
+	}
+}
+
+function obravnavajNasicenost(nasicenost){
+	if(nasicenost){
+		nasicenost = parseFloat(nasicenost);
+		if(nasicenost>=0 && nasicenost<=100) {
+			if (nasicenost >= 96 && nasicenost <= 100) {
+				$("#form-nasicenost").attr("class", "has-success");
+				$("#nasicenost").hide();
+			} else {
+				$("#form-nasicenost").attr("class", "has-warning");
+				$("#nasicenost").text("Nasicenost");
+				$("#nasicenost").show();
+			}
+		}else{
+			$("#form-nasicenost").attr("class", "");
+		}
+	}else{
+		$("#form-nasicenost").attr("class", "");
+		$("#nasicenost").hide();
+	}
+}
 
 $(document).ready(function() {
 	oznaciNaMapi("","prvic");
@@ -606,6 +655,11 @@ $(document).ready(function() {
 		vstaviZdravnikeNaStrani(zdravnikiNaStrani);
 		$("#zdravniki").show();
 	});
+	setInterval(function() { obravnavajVisinoInTezo($('#dodajVitalnoTelesnaVisina').val(), $('#dodajVitalnoTelesnaTeza').val());}, 200);
+	setInterval(function() { obravnavajTemperaturo($('#dodajVitalnoTelesnaTemperatura').val());}, 200);
+	setInterval(function() { obravnavajSistolicni($('#dodajVitalnoKrvniTlakSistolicni').val());}, 200);
+	setInterval(function() { obravnavajDiastolicni($('#dodajVitalnoKrvniTlakDiastolicni').val());}, 200);
+	setInterval(function() { obravnavajNasicenost($('#dodajVitalnoNasicenostKrviSKisikom').val());}, 200);
 	$("#zdravnik1").click(function( event ) {
 		var zdravnik = $("#zdravnik1").text();
 		var adresa = $("#adresa1").text();
