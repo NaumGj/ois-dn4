@@ -1,0 +1,36 @@
+/* SVG styling */
+svg {
+    width: 960px;
+    height: 300px;
+}
+
+#chart4 svg {
+    height: 300px;
+}
+
+#info {
+    height: 20px;
+}
+
+path {
+    stroke: #777;
+    stroke-width: 0.1px;
+}
+
+.labels {
+    fill: black;
+    font-weight: 200;
+    letter-spacing: -1px;
+}
+.labels.segment {
+    font-size: 15px;
+}
+.line {
+    fill: none;
+    stroke-width: 3px;
+    vector-effect: non-scaling-stroke;
+}
+.area {
+    vector-effect: non-scaling-stroke;
+}
+

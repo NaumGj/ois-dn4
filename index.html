@@ -4,6 +4,8 @@
 	<head>
 	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	    <title>EhrScape - Vnos in poizvedovanje po EHR podatkih</title>
+		<link rel="stylesheet" href="svg.css">
+		<link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/default.min.css">
 	    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 	    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
 	    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
@@ -50,22 +52,31 @@
 						<span class="label label-default">Ime</span><input id="kreirajIme" type="text" class="form-control input-mini" placeholder="Osama">
 						<span class="label label-default">Priimek</span><input id="kreirajPriimek" type="text" class="form-control" placeholder="Bin Laden">
 						<span class="label label-default">Datum rojstva</span><input id="kreirajDatumRojstva" type="text" class="form-control" placeholder="1957-03-10T09:08">
-						<button type="button" class="btn btn-primary btn-xs" onclick="kreirajEHRzaBolnika()">Dodaj osnovne podatke o bolniku</button><span id="kreirajSporocilo"></span>
-				  	</div>
+						<button type="button" class="btn btn-primary btn-xs" onclick="kreirajEHRzaBolnika()">Dodaj osnovne podatke o bolniku</button><span id="kreirajSporocilo"></span><br><br>
+						<button type="button" class="btn btn-primary btn-lg">Generiraj bolnika</button><span id="generirajSporocilo"></span>
+					</div>
 				</div>
 			</div>
 			<div class="col-lg-6 col-md-6 col-sm-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<div class="row">
-							<div class="col-lg-8 col-md-8 col-sm-8"><b>Preberi EHR zapis</b> obstoječega bolnika</div>
-							<div class="col-lg-4 col-md-4 col-sm-4"><select class="form-control input-sm" id="preberiObstojeciEHR"><option value=""></option><option value="254f791d-2e7c-49d9-b646-376f62d6ead5">Dejan Lavbič</option><option value="d564c6a3-5a43-4fcc-bfa7-9ac76e9673bd">Pujsa Pepa</option><option value="b931580f-2b05-488b-985b-8d9ffb08ad02">Ata Smrk</option></select></div>
+							<div class="col-lg-6 col-md-6 col-sm-6"><b>Pregled</b> meritev <b>vitalnih znakov</b> bolnika</div>
+							<div class="col-lg-3 col-md-3 col-sm-3"><select class="form-control input-sm" id="preberiTipZaVitalneZnake"><option value="AQL poizvedba">AQL vitalni znaki</option><option value="vizualiziraj podatke">Vizualiziraj podatke</option></select></div>
+							<div class="col-lg-3 col-md-3 col-sm-3"><select class="form-control input-sm" id="preberiEhrIdZaVitalneZnake"><option value=""></option><option value="b931580f-2b05-488b-985b-8d9ffb08ad02">Ata Smrk</option><option value="d564c6a3-5a43-4fcc-bfa7-9ac76e9673bd">Pujsa Pepa</option></select></div>
 						</div>
 					</div>
 					<div class="panel-body">
-						<span class="label label-default">EHR ID</span><input id="preberiEHRid" type="text" class="form-control input-mini" placeholder="7b661e12-3a98-21ad-c29e-2dc9f5a3d885">
-						<button type="button" class="btn btn-primary btn-xs" onclick="preberiEHRodBolnika()">Preberi osnovne podatke o bolniku</button><span id="preberiSporocilo"></span>
-				  	</div>
+						<span class="label label-default">EHR ID</span><input id="meritveVitalnihZnakovEHRid" type="text" class="form-control input-mini" placeholder="7b661e12-3a98-21ad-c29e-2dc9f5a3d885">
+						<button type="button" class="btn btn-primary btn-xs" onclick="preberiMeritveVitalnihZnakov('telesna temperatura')">Preberi meritve vitalnih znakov</button><span id="preberiMeritveVitalnihZnakovSporocilo"></span>
+						<div id="chart4"></div>
+						<div class="col-lg-12 col-md-12 col-sm-12" id="info"></div>
+						<script src="http://d3js.org/d3.v3.min.js"></script>
+						<script src="circularHeatChart.js"></script>
+						<script src="example.js"></script>
+						<script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
+						<script>hljs.initHighlightingOnLoad();</script>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -94,46 +105,34 @@
 			</div>
 			<div class="col-lg-6 col-md-6 col-sm-6">
 				<div class="panel panel-default">
-					<div class="panel-heading">
-						<div class="row">
-							<div class="col-lg-6 col-md-6 col-sm-6"><b>Pregled</b> meritev <b>vitalnih znakov</b> bolnika</div>
-							<div class="col-lg-3 col-md-3 col-sm-3"><select class="form-control input-sm" id="preberiTipZaVitalneZnake"><option value="telesna temperatura">telesna temperatura</option><option value="telesna temperatura AQL">telesna temperatura (filter na podhladitev)</option><option value="telesna teža">telesna teža</option></select></div>
-							<div class="col-lg-3 col-md-3 col-sm-3"><select class="form-control input-sm" id="preberiEhrIdZaVitalneZnake"><option value=""></option><option value="b931580f-2b05-488b-985b-8d9ffb08ad02">Ata Smrk</option><option value="d564c6a3-5a43-4fcc-bfa7-9ac76e9673bd">Pujsa Pepa</option></select></div>
-						</div>
+					<div class="col-lg-6 col-md-6 col-sm-6">
+						<select class="form-control input" id="obmocje" style="width: 160px"><option value="nevrologija">Nevrologija</option><option value="otorinolaringologija">Otorinolaringologija</option></select><br>
 					</div>
-					<div class="panel-body">
-						<span class="label label-default">EHR ID</span><input id="meritveVitalnihZnakovEHRid" type="text" class="form-control input-mini" placeholder="7b661e12-3a98-21ad-c29e-2dc9f5a3d885">
-						<button type="button" class="btn btn-primary btn-xs" onclick="preberiMeritveVitalnihZnakov('telesna temperatura')">Preberi meritve vitalnih znakov</button><span id="preberiMeritveVitalnihZnakovSporocilo"></span>
-						<div id="rezultatMeritveVitalnihZnakov"></div>
-						<div class="col-lg-6 col-md-6 col-sm-6">
-							<select class="form-control input" id="obmocje" style="width: 160px"><option value="nevrologija">Nevrologija</option><option value="otorinolaringologija">Otorinolaringologija</option></select><br>
-						</div>
-						<div id="zdravniki" class="col-lg-6 col-md-6 col-sm-6" style="display: none">
-							<a id="zdravnik1" class="seznam-zdravnikov"></a><br>
-							<option id="adresa1" value="" class="adrese-zdravnikov"></option>
-							<a id="zdravnik2" class="seznam-zdravnikov"></a><br>
-							<option id="adresa2" value="" class="adrese-zdravnikov"></option>
-							<a id="zdravnik3" class="seznam-zdravnikov"></a><br>
-							<option id="adresa3" value="" class="adrese-zdravnikov"></option>
-							<a id="zdravnik4" class="seznam-zdravnikov"></a><br>
-							<option id="adresa4" value="" class="adrese-zdravnikov"></option>
-							<a id="zdravnik5" class="seznam-zdravnikov"></a><br>
-							<option id="adresa5" value="" class="adrese-zdravnikov"></option>
-							<ul class="pager pull-left">
-								<li id="previous" class="disabled"><a onclick="najdiPreviousPage()">Previous</a></li>
-								<li id="next" class="enabled"><a onclick="najdiNextPage()">Next</a></li>
-								<option id="strana" style="display: none;" value="0"></option>
-							</ul>
-						</div>
-						<div class="col-lg-12 col-md-12 col-sm-12" id="kriticne" class="row">
-							<span id="itm" class="label label-warning warningspan"></span>
-							<span id="temperatura" class="label label-warning warningspan"></span>
-							<span id="sistolicni" class="label label-warning warningspan"></span>
-							<span id="diastolicni" class="label label-warning warningspan"></span>
-							<span id="nasicenost" class="label label-warning warningspan"></span>
-						</div>
-						<div class="col-lg-12 col-md-12 col-sm-12" id="map"></div>
-				  	</div>
+					<div id="zdravniki" class="col-lg-6 col-md-6 col-sm-6" style="display: none">
+						<a id="zdravnik1" class="seznam-zdravnikov"></a><br>
+						<option id="adresa1" value="" class="adrese-zdravnikov"></option>
+						<a id="zdravnik2" class="seznam-zdravnikov"></a><br>
+						<option id="adresa2" value="" class="adrese-zdravnikov"></option>
+						<a id="zdravnik3" class="seznam-zdravnikov"></a><br>
+						<option id="adresa3" value="" class="adrese-zdravnikov"></option>
+						<a id="zdravnik4" class="seznam-zdravnikov"></a><br>
+						<option id="adresa4" value="" class="adrese-zdravnikov"></option>
+						<a id="zdravnik5" class="seznam-zdravnikov"></a><br>
+						<option id="adresa5" value="" class="adrese-zdravnikov"></option>
+						<ul class="pager pull-left">
+							<li id="previous" class="disabled"><a onclick="najdiPreviousPage()">Previous</a></li>
+							<li id="next" class="enabled"><a onclick="najdiNextPage()">Next</a></li>
+							<option id="strana" style="display: none;" value="0"></option>
+						</ul>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12" id="kriticne" class="row">
+						<span id="itm" class="label label-warning warningspan"></span>
+						<span id="temperatura" class="label label-warning warningspan"></span>
+						<span id="sistolicni" class="label label-warning warningspan"></span>
+						<span id="diastolicni" class="label label-warning warningspan"></span>
+						<span id="nasicenost" class="label label-warning warningspan"></span>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12" id="map"></div>
 				</div>
 			</div>
 		</div>

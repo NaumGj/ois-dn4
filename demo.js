@@ -68,6 +68,7 @@ function preberiEHRodBolnika() {
 	sessionId = getSessionId();
 
 	var ehrId = $("#preberiEHRid").val();
+	var tip = $("#preberiTipZaVitalneZnake").val();
 
 	if (!ehrId || ehrId.trim().length == 0) {
 		$("#preberiSporocilo").html("<span class='obvestilo label label-warning fade-in'>Prosim vnesite zahtevan podatek!");
@@ -151,6 +152,7 @@ function preberiMeritveVitalnihZnakov() {
 
 	var ehrId = $("#meritveVitalnihZnakovEHRid").val();
 	var tip = $("#preberiTipZaVitalneZnake").val();
+	var podatkid3 = [];
 
 	if (!ehrId || ehrId.trim().length == 0 || !tip || tip.trim().length == 0) {
 		$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-warning fade-in'>Prosim vnesite zahtevan podatek!");
@@ -162,92 +164,54 @@ function preberiMeritveVitalnihZnakov() {
 			success: function (data) {
 				var party = data.party;
 				$("#rezultatMeritveVitalnihZnakov").html("<br/><span>Pridobivanje podatkov za <b>'" + tip + "'</b> bolnika <b>'" + party.firstNames + " " + party.lastNames + "'</b>.</span><br/><br/>");
-				if (tip == "telesna temperatura") {
-					$.ajax({
-						url: baseUrl + "/view/" + ehrId + "/" + "body_temperature",
-						type: 'GET',
-						headers: {"Ehr-Session": sessionId},
-						success: function (res) {
-							if (res.length > 0) {
-								var results = "<table class='table table-striped table-hover'><tr><th>Datum in ura</th><th class='text-right'>Telesna temperatura</th></tr>";
-								for (var i in res) {
-									results += "<tr><td>" + res[i].time + "</td><td class='text-right'>" + res[i].temperature + " " + res[i].unit + "</td>";
+				var AQL =
+					"select a_a/data[at0002]/events[at0003]/time/value as time, a_a/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude as Temperature_magnitude, a_b/data[at0001]/events[at0006]/data[at0003]/items[at0004]/value/magnitude as Systolic_magnitude, a_b/data[at0001]/events[at0006]/data[at0003]/items[at0005]/value/magnitude as Diastolic_magnitude, a_c/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/magnitude as Body_Mass_Index_magnitude, a_d/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value/numerator as spO2_numerator from EHR e[e/ehr_id/value='" + ehrId + "']" + " contains COMPOSITION a contains (OBSERVATION a_a[openEHR-EHR-OBSERVATION.body_temperature.v1] or " +
+					"OBSERVATION a_b[openEHR-EHR-OBSERVATION.blood_pressure.v1] or OBSERVATION a_c[openEHR-EHR-OBSERVATION.body_mass_index.v1] or OBSERVATION a_d[openEHR-EHR-OBSERVATION.indirect_oximetry.v1]) " +
+					"where a_a/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude>37 or a_b/data[at0001]/events[at0006]/data[at0003]/items[at0004]/value/magnitude>120 or a_b/data[at0001]/events[at0006]/data[at0003]/items[at0005]/value/magnitude>80 or a_c/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/magnitude>25 or a_d/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value/numerator<96 order by a_a/data[at0002]/events[at0003]/time/value desc offset 0 limit 5";
+				$.ajax({
+					url: baseUrl + "/query?" + $.param({"aql": AQL}),
+					type: 'GET',
+					headers: {"Ehr-Session": sessionId},
+					success: function (res) {
+						var results = "<table class='table table-striped table-hover'><tr><th>Tel. temperatura</th><th>Sistoličen</th><th>Diastoličen</th><th>ITM</th><th>Nasičenost</th></tr>";
+						if (res) {
+							var rows = res.resultSet;
+							for (var i in rows) {
+								if(tip === "vizualiziraj podatke") {
+									podatkid3[i * 5] = rows[i].Temperature_magnitude;
+									podatkid3[i * 5 + 1] = rows[i].Systolic_magnitude;
+									podatkid3[i * 5 + 2] = rows[i].Diastolic_magnitude;
+									podatkid3[i * 5 + 3] = rows[i].Body_Mass_Index_magnitude;
+									podatkid3[i * 5 + 4] = rows[i].spO2_numerator;
+								}else if(tip === "AQL poizvedba") {
+									results += "<tr><td>" + rows[i].Temperature_magnitude + "</td><td>" + rows[i].Systolic_magnitude + "</td><td>" + rows[i].Diastolic_magnitude + "</td><td>" + rows[i].Body_Mass_Index_magnitude + "</td><td>" + rows[i].spO2_numerator + "</td>";
 								}
-								results += "</table>";
-								$("#rezultatMeritveVitalnihZnakov").append(results);
-							} else {
-								$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-warning fade-in'>Ni podatkov!</span>");
 							}
-						},
+							if(tip === "AQL poizvedba") {
+								results += "</table>";
+								$("#chart4").html(results);
+							}
+							if(tip === "vizualiziraj podatke") {
+								vizualizacija(podatkid3);
+							}
+						} else {
+							$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-warning fade-in'>Ni podatkov!</span>");
+						}
+					},
 						error: function () {
 							$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
 							console.log(JSON.parse(err.responseText).userMessage);
 						}
 					});
-				} else if (tip == "telesna teža") {
-					$.ajax({
-						url: baseUrl + "/view/" + ehrId + "/" + "weight",
-						type: 'GET',
-						headers: {"Ehr-Session": sessionId},
-						success: function (res) {
-							if (res.length > 0) {
-								var results = "<table class='table table-striped table-hover'><tr><th>Datum in ura</th><th class='text-right'>Telesna teža</th></tr>";
-								for (var i in res) {
-									results += "<tr><td>" + res[i].time + "</td><td class='text-right'>" + res[i].weight + " " + res[i].unit + "</td>";
-								}
-								results += "</table>";
-								$("#rezultatMeritveVitalnihZnakov").append(results);
-							} else {
-								$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-warning fade-in'>Ni podatkov!</span>");
-							}
-						},
-						error: function () {
-							$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
-							console.log(JSON.parse(err.responseText).userMessage);
-						}
-					});
-				} else if (tip == "telesna temperatura AQL") {
-					var AQL =
-						"select " +
-						"t/data[at0002]/events[at0003]/time/value as cas, " +
-						"t/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude as temperatura_vrednost, " +
-						"t/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/units as temperatura_enota " +
-						"from EHR e[e/ehr_id/value='" + ehrId + "'] " +
-						"contains OBSERVATION t[openEHR-EHR-OBSERVATION.body_temperature.v1] " +
-						"where t/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude<35 " +
-						"order by t/data[at0002]/events[at0003]/time/value desc " +
-						"limit 10";
-					$.ajax({
-						url: baseUrl + "/query?" + $.param({"aql": AQL}),
-						type: 'GET',
-						headers: {"Ehr-Session": sessionId},
-						success: function (res) {
-							var results = "<table class='table table-striped table-hover'><tr><th>Datum in ura</th><th class='text-right'>Telesna temperatura</th></tr>";
-							if (res) {
-								var rows = res.resultSet;
-								for (var i in rows) {
-									results += "<tr><td>" + rows[i].cas + "</td><td class='text-right'>" + rows[i].temperatura_vrednost + " " + rows[i].temperatura_enota + "</td>";
-								}
-								results += "</table>";
-								$("#rezultatMeritveVitalnihZnakov").append(results);
-							} else {
-								$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-warning fade-in'>Ni podatkov!</span>");
-							}
-
-						},
-						error: function () {
-							$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
-							console.log(JSON.parse(err.responseText).userMessage);
-						}
-					});
-				}
-			},
+				},
 			error: function (err) {
 				$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
 				console.log(JSON.parse(err.responseText).userMessage);
 			}
 		});
 	}
+	//console.log(podatkid3[0]);
+	//return podatkid3;
 }
 
 function najdiZdravnike(obmocje){
@@ -500,7 +464,7 @@ function obravnavajVisinoInTezo(visina, teza){
 		}else if(indeksTelesneMase>17 && indeksTelesneMase<18.5){
 			$("#form-visina").attr("class", "has-warning");
 			$("#form-teza").attr("class", "has-warning");
-			$("#itm").text("Blaga nedohranjenost");
+			$("#itm").text("Zvečana telesna masa");
 			$("#itm").attr("class", "label label-warning warningspan");
 			$("#itm").show();
 		}else if(indeksTelesneMase>25 && indeksTelesneMase<=30){
@@ -576,27 +540,27 @@ function obravnavajSistolicni(sistolicni){
 			$("#sistolicni").hide();
 		}else if(sistolicni <90){
 			$("#form-sistolicni").attr("class", "has-warning");
-			$("#sistolicni").text("Hipotenzija (sistolični krvni tlak)");
+			$("#sistolicni").text("Hipotenzija (sistolični)");
 			$("#sistolicni").attr("class", "label label-danger warningspan");
 			$("#sistolicni").show();
 		}else if(sistolicni > 120 && sistolicni < 140){
 			$("#form-sistolicni").attr("class", "has-warning");
-			$("#sistolicni").text("Predhipertenzija (sistolični krvni tlak)");
+			$("#sistolicni").text("Predhipertenzija (sistolični)");
 			$("#sistolicni").attr("class", "label label-warning warningspan");
 			$("#sistolicni").show();
 		}else if(sistolicni >=140 && sistolicni < 160){
 			$("#form-sistolicni").attr("class", "has-warning");
-			$("#sistolicni").text("Hipertenzija stopnje I (sistolični krvni tlak)");
+			$("#sistolicni").text("Hipertenzija stopnje I (sistolični)");
 			$("#sistolicni").attr("class", "label label-warning warningspan");
 			$("#sistolicni").show();
 		}else if(sistolicni >= 160 && sistolicni < 180){
 			$("#form-sistolicni").attr("class", "has-warning");
-			$("#sistolicni").text("Hipertenzija stopnje II (sistolični krvni tlak)");
+			$("#sistolicni").text("Hipertenzija stopnje II (sistolični)");
 			$("#sistolicni").attr("class", "label label-warning warningspan");
 			$("#sistolicni").show();
 		}else if(sistolicni >= 180){
 			$("#form-sistolicni").attr("class", "has-warning");
-			$("#sistolicni").text("Hipertenzija - takojšnje ukrepanje (sistolični krvni tlak)");
+			$("#sistolicni").text("Hipertenzija-takojšnje ukrepanje (sistolični)");
 			$("#sistolicni").attr("class", "label label-danger warningspan");
 			$("#sistolicni").show();
 		}
@@ -614,27 +578,27 @@ function obravnavajDiastolicni(diastolicni){
 			$("#diastolicni").hide();
 		}else if(diastolicni<60){
 			$("#form-diastolicni").attr("class", "has-warning");
-			$("#diastolicni").text("Hipotenzija (diastolični krvni tlak)");
+			$("#diastolicni").text("Hipotenzija (diastolični)");
 			$("#diastolicni").attr("class", "label label-danger warningspan");
 			$("#diastolicni").show();
 		}else if(diastolicni > 80 && diastolicni < 90){
 			$("#form-diastolicni").attr("class", "has-warning");
-			$("#diastolicni").text("Predhipertenzija (diastolicni krvni tlak)");
+			$("#diastolicni").text("Predhipertenzija (diastolični)");
 			$("#diastolicni").attr("class", "label label-warning warningspan");
 			$("#diastolicni").show();
 		}else if(diastolicni >= 90 && diastolicni < 100){
 			$("#form-diastolicni").attr("class", "has-warning");
-			$("#diastolicni").text("Hipertenzija stopnje I (diastolicni krvni tlak)");
+			$("#diastolicni").text("Hipertenzija stopnje I (diastolični)");
 			$("#diastolicni").attr("class", "label label-warning warningspan");
 			$("#diastolicni").show();
 		}else if(diastolicni >= 100 && diastolicni < 110){
 			$("#form-diastolicni").attr("class", "has-warning");
-			$("#diastolicni").text("Hipertenzija stopnje II (diastolicni krvni tlak)");
+			$("#diastolicni").text("Hipertenzija stopnje II (diastolični)");
 			$("#diastolicni").attr("class", "label label-warning warningspan");
 			$("#diastolicni").show();
 		}else if(diastolicni >= 110){
 			$("#form-diastolicni").attr("class", "has-warning");
-			$("#diastolicni").text("Hipertenzija - takojšnje ukrepanje (diastolicni krvni tlak)");
+			$("#diastolicni").text("Hipertenzija-takojšnje ukrepanje (diastolični)");
 			$("#diastolicni").attr("class", "label label-danger warningspan");
 			$("#diastolicni").show();
 		}
@@ -654,10 +618,11 @@ function obravnavajNasicenost(nasicenost){
 			} else if(nasicenost > 90 && nasicenost < 96){
 				$("#form-nasicenost").attr("class", "has-warning");
 				$("#nasicenost").text("Slaba nasicenost krvi s kisikom");
+				$("#nasicenost").attr("class", "label label-warning warningspan");
 				$("#nasicenost").show();
 			} else if(nasicenost <= 90){
 				$("#form-nasicenost").attr("class", "has-warning");
-				$("#nasicenost").text("Možnost za respiratorna odpoved - takojšnje ukrepanje");
+				$("#nasicenost").text("Respiratorne težave");
 				$("#nasicenost").attr("class", "label label-danger warningspan");
 				$("#nasicenost").show();
 			}
@@ -699,7 +664,7 @@ $(document).ready(function() {
 	});
 	$('#preberiEhrIdZaVitalneZnake').change(function() {
 		$("#preberiMeritveVitalnihZnakovSporocilo").html("");
-		$("#rezultatMeritveVitalnihZnakov").html("");
+		$("#chart4").html("");
 		$("#meritveVitalnihZnakovEHRid").val($(this).val());
 	});
 	$("#obmocje").change(function() {
