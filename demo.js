@@ -117,6 +117,7 @@ function dodajMeritveVitalnihZnakov() {
 			"ctx/time": datumInUra,
 			"vital_signs/height_length/any_event/body_height_length": telesnaVisina,
 			"vital_signs/body_weight/any_event/body_weight": telesnaTeza,
+			"vital_signs/body_mass_index/any_event/body_mass_index": (telesnaTeza/((telesnaVisina/100)*(telesnaVisina/100))),
 			"vital_signs/body_temperature/any_event/temperature|magnitude": telesnaTemperatura,
 			"vital_signs/body_temperature/any_event/temperature|unit": "°C",
 			"vital_signs/blood_pressure/any_event/systolic": sistolicniKrvniTlak,
@@ -165,9 +166,24 @@ function preberiMeritveVitalnihZnakov() {
 				var party = data.party;
 				$("#rezultatMeritveVitalnihZnakov").html("<br/><span>Pridobivanje podatkov za <b>'" + tip + "'</b> bolnika <b>'" + party.firstNames + " " + party.lastNames + "'</b>.</span><br/><br/>");
 				var AQL =
-					"select a_a/data[at0002]/events[at0003]/time/value as time, a_a/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude as Temperature_magnitude, a_b/data[at0001]/events[at0006]/data[at0003]/items[at0004]/value/magnitude as Systolic_magnitude, a_b/data[at0001]/events[at0006]/data[at0003]/items[at0005]/value/magnitude as Diastolic_magnitude, a_c/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/magnitude as Body_Mass_Index_magnitude, a_d/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value/numerator as spO2_numerator from EHR e[e/ehr_id/value='" + ehrId + "']" + " contains COMPOSITION a contains (OBSERVATION a_a[openEHR-EHR-OBSERVATION.body_temperature.v1] or " +
-					"OBSERVATION a_b[openEHR-EHR-OBSERVATION.blood_pressure.v1] or OBSERVATION a_c[openEHR-EHR-OBSERVATION.body_mass_index.v1] or OBSERVATION a_d[openEHR-EHR-OBSERVATION.indirect_oximetry.v1]) " +
-					"where a_a/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude>37 or a_b/data[at0001]/events[at0006]/data[at0003]/items[at0004]/value/magnitude>120 or a_b/data[at0001]/events[at0006]/data[at0003]/items[at0005]/value/magnitude>80 or a_c/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/magnitude>25 or a_d/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value/numerator<96 order by a_a/data[at0002]/events[at0003]/time/value desc offset 0 limit 5";
+					"select a_a/data[at0002]/events[at0003]/time/value as time, " +
+					"a_a/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude as Temperature_magnitude, " +
+					"a_b/data[at0001]/events[at0006]/data[at0003]/items[at0004]/value/magnitude as Systolic_magnitude, " +
+					"a_b/data[at0001]/events[at0006]/data[at0003]/items[at0005]/value/magnitude as Diastolic_magnitude, " +
+					"a_c/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/magnitude as Body_Mass_Index_magnitude, " +
+					"a_d/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value/numerator as spO2_numerator " +
+					"from EHR e[e/ehr_id/value='" + ehrId + "'] " +
+					"contains COMPOSITION a contains (OBSERVATION a_a[openEHR-EHR-OBSERVATION.body_temperature.v1] or " +
+					"OBSERVATION a_b[openEHR-EHR-OBSERVATION.blood_pressure.v1] or " +
+					"OBSERVATION a_c[openEHR-EHR-OBSERVATION.body_mass_index.v1] or " +
+					"OBSERVATION a_d[openEHR-EHR-OBSERVATION.indirect_oximetry.v1]) " +
+					"where a_a/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude>37 or " +
+					"a_b/data[at0001]/events[at0006]/data[at0003]/items[at0004]/value/magnitude>120 or " +
+					"a_b/data[at0001]/events[at0006]/data[at0003]/items[at0005]/value/magnitude>80 or " +
+					"a_c/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/magnitude>25 or " +
+					"a_d/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value/numerator<96 " +
+					"order by a_a/data[at0002]/events[at0003]/time/value desc " +
+					"offset 0 limit 5";
 				$.ajax({
 					url: baseUrl + "/query?" + $.param({"aql": AQL}),
 					type: 'GET',
@@ -464,13 +480,13 @@ function obravnavajVisinoInTezo(visina, teza){
 		}else if(indeksTelesneMase>17 && indeksTelesneMase<18.5){
 			$("#form-visina").attr("class", "has-warning");
 			$("#form-teza").attr("class", "has-warning");
-			$("#itm").text("Zvečana telesna masa");
+			$("#itm").text("Blaga nedohranjenost");
 			$("#itm").attr("class", "label label-warning warningspan");
 			$("#itm").show();
 		}else if(indeksTelesneMase>25 && indeksTelesneMase<=30){
 			$("#form-visina").attr("class", "has-warning");
 			$("#form-teza").attr("class", "has-warning");
-			$("#itm").text("Blaga nedohranjenost");
+			$("#itm").text("Zvečana telesna masa");
 			$("#itm").attr("class", "label label-warning warningspan");
 			$("#itm").show();
 		}else if(indeksTelesneMase>30 && indeksTelesneMase<=35){
@@ -635,6 +651,74 @@ function obravnavajNasicenost(nasicenost){
 	}
 }
 
+function generirajBolniki(){
+	sessionId = getSessionId();
+
+	var ehrIDs = ['3e7ad942-52ba-45cb-8888-a5bc8b36007c','0e296572-e26b-4f1a-8d12-548ae1eb889c','90ecf9af-45b2-4f7d-ba01-7c37f41d197a'];
+	var podatki1 = [['201','95','38','160','130','95'],['201','93','37','140','95','97'],['201','94','36.5','130','95','98']];
+	var podatki2 = [['201','95','38','160','130','95'],['201','93','37','140','95','97'],['201','94','36.5','130','95','98']];
+	var podatki3 = [['201','95','38','160','130','95'],['201','93','37','140','95','97'],['201','94','36.5','130','95','98']];
+
+	for(var i=0; i<3; i++) {
+		var ehrId = ehrIDs[i];
+		for(var j=0; j<3; j++) {
+			var currentdate = new Date();
+			var datum = (currentdate.getHours() < 10)?"0"+currentdate.getHours():currentdate.getHours();
+			var datumInUra = currentdate.getFullYear() + "-"
+				+ (currentdate.getMonth()+1)  + "-"
+				+ currentdate.getDate() + "T"
+				+ datum + ":"
+				+ currentdate.getMinutes();
+			//console.log(datumInUra);
+			var telesnaVisina = podatki1[j][0];
+			var telesnaTeza = podatki1[j][1];
+			var telesnaTemperatura = podatki1[j][2];
+			var sistolicniKrvniTlak = podatki1[j][3];
+			var diastolicniKrvniTlak = podatki1[j][4];
+			var nasicenostKrviSKisikom = podatki1[j][5];
+			var merilec = "medicinska sestra JaVale McGee";
+
+			$.ajaxSetup({
+				headers: {"Ehr-Session": sessionId}
+			});
+			var podatki = {
+				// Preview Structure: https://rest.ehrscape.com/rest/v1/template/Vital%20Signs/example
+				"ctx/language": "en",
+				"ctx/territory": "SI",
+				"ctx/time": datumInUra,
+				"vital_signs/height_length/any_event/body_height_length": telesnaVisina,
+				"vital_signs/body_weight/any_event/body_weight": telesnaTeza,
+				"vital_signs/body_mass_index/any_event/body_mass_index": (telesnaTeza/((telesnaVisina/100)*(telesnaVisina/100))),
+				"vital_signs/body_temperature/any_event/temperature|magnitude": telesnaTemperatura,
+				"vital_signs/body_temperature/any_event/temperature|unit": "°C",
+				"vital_signs/blood_pressure/any_event/systolic": sistolicniKrvniTlak,
+				"vital_signs/blood_pressure/any_event/diastolic": diastolicniKrvniTlak,
+				"vital_signs/indirect_oximetry:0/spo2|numerator": nasicenostKrviSKisikom
+			};
+			var parametriZahteve = {
+				"ehrId": ehrId,
+				templateId: 'Vital Signs',
+				format: 'FLAT',
+				committer: merilec
+			};
+			$.ajax({
+				url: baseUrl + "/composition?" + $.param(parametriZahteve),
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify(podatki),
+				success: function (res) {
+					console.log(res.meta.href);
+					$("#dodajMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-success fade-in'>" + res.meta.href + ".</span>");
+				},
+				error: function (err) {
+					$("#dodajMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
+					console.log(JSON.parse(err.responseText).userMessage);
+				}
+			});
+		}
+	}
+}
+
 $(document).ready(function() {
 	oznaciNaMapi("","prvic");
 	$('#preberiObstojeciEHR').change(function() {
@@ -653,14 +737,21 @@ $(document).ready(function() {
 		$("#dodajMeritveVitalnihZnakovSporocilo").html("");
 		var podatki = $(this).val().split("|");
 		$("#dodajVitalnoEHR").val(podatki[0]);
-		$("#dodajVitalnoDatumInUra").val(podatki[1]);
-		$("#dodajVitalnoTelesnaVisina").val(podatki[2]);
-		$("#dodajVitalnoTelesnaTeza").val(podatki[3]);
-		$("#dodajVitalnoTelesnaTemperatura").val(podatki[4]);
-		$("#dodajVitalnoKrvniTlakSistolicni").val(podatki[5]);
-		$("#dodajVitalnoKrvniTlakDiastolicni").val(podatki[6]);
-		$("#dodajVitalnoNasicenostKrviSKisikom").val(podatki[7]);
-		$("#dodajVitalnoMerilec").val(podatki[8]);
+		var currentdate = new Date();
+		var datum = (currentdate.getHours() < 10)?"0"+currentdate.getHours():currentdate.getHours();
+		var datumInUra = currentdate.getFullYear() + "-"
+			+ (currentdate.getMonth()+1)  + "-"
+			+ currentdate.getDate() + "T"
+			+ datum + ":"
+			+ currentdate.getMinutes();
+		$("#dodajVitalnoDatumInUra").val(datumInUra);
+		$("#dodajVitalnoTelesnaVisina").val(podatki[1]);
+		$("#dodajVitalnoTelesnaTeza").val(podatki[2]);
+		$("#dodajVitalnoTelesnaTemperatura").val(podatki[3]);
+		$("#dodajVitalnoKrvniTlakSistolicni").val(podatki[4]);
+		$("#dodajVitalnoKrvniTlakDiastolicni").val(podatki[5]);
+		$("#dodajVitalnoNasicenostKrviSKisikom").val(podatki[6]);
+		$("#dodajVitalnoMerilec").val(podatki[7]);
 	});
 	$('#preberiEhrIdZaVitalneZnake').change(function() {
 		$("#preberiMeritveVitalnihZnakovSporocilo").html("");

@@ -108,10 +108,10 @@ function vizualizacija(data) {
         .append('svg')
         .call(chart);
 
-    
+
     d3.selectAll("#chart4 path").on('mouseover', function () {
         var d = d3.select(this).data()[0];
-        d3.select("#info").text(d.title + ' has value ' + data[parseInt(d.title)]);
+        d3.select("#info").text(d.title + ' ima vrednost ' + data[parseInt(d.title)]);
     });
     d3.selectAll("#chart4 svg").on('mouseout', function () {
         d3.select("#info").text('');
