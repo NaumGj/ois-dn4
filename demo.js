@@ -63,34 +63,6 @@ function kreirajEHRzaBolnika() {
 	}
 }
 
-
-function preberiEHRodBolnika() {
-	sessionId = getSessionId();
-
-	var ehrId = $("#preberiEHRid").val();
-	var tip = $("#preberiTipZaVitalneZnake").val();
-
-	if (!ehrId || ehrId.trim().length == 0) {
-		$("#preberiSporocilo").html("<span class='obvestilo label label-warning fade-in'>Prosim vnesite zahtevan podatek!");
-	} else {
-		$.ajax({
-			url: baseUrl + "/demographics/ehr/" + ehrId + "/party",
-			type: 'GET',
-			headers: {"Ehr-Session": sessionId},
-			success: function (data) {
-				var party = data.party;
-				$("#preberiSporocilo").html("<span class='obvestilo label label-success fade-in'>Bolnik '" + party.firstNames + " " + party.lastNames + "', ki se je rodil '" + party.dateOfBirth + "'.</span>");
-				console.log("Bolnik '" + party.firstNames + " " + party.lastNames + "', ki se je rodil '" + party.dateOfBirth + "'.");
-			},
-			error: function(err) {
-				$("#preberiSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
-				console.log(JSON.parse(err.responseText).userMessage);
-			}
-		});
-	}
-}
-
-
 function dodajMeritveVitalnihZnakov() {
 	sessionId = getSessionId();
 
@@ -177,10 +149,14 @@ function preberiMeritveVitalnihZnakov() {
 					"OBSERVATION a_b[openEHR-EHR-OBSERVATION.blood_pressure.v1] or " +
 					"OBSERVATION a_c[openEHR-EHR-OBSERVATION.body_mass_index.v1] or " +
 					"OBSERVATION a_d[openEHR-EHR-OBSERVATION.indirect_oximetry.v1]) " +
-					"where a_a/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude>37 or " +
+					"where a_a/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude>37.5 or " +
+					"a_a/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude<36 or " +
 					"a_b/data[at0001]/events[at0006]/data[at0003]/items[at0004]/value/magnitude>120 or " +
+					"a_b/data[at0001]/events[at0006]/data[at0003]/items[at0004]/value/magnitude<90 or " +
 					"a_b/data[at0001]/events[at0006]/data[at0003]/items[at0005]/value/magnitude>80 or " +
+					"a_b/data[at0001]/events[at0006]/data[at0003]/items[at0005]/value/magnitude<60 or " +
 					"a_c/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/magnitude>25 or " +
+					"a_c/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/magnitude<18.5 or " +
 					"a_d/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value/numerator<96 " +
 					"order by a_a/data[at0002]/events[at0003]/time/value desc " +
 					"offset 0 limit 5";
@@ -226,8 +202,6 @@ function preberiMeritveVitalnihZnakov() {
 			}
 		});
 	}
-	//console.log(podatkid3[0]);
-	//return podatkid3;
 }
 
 function autocompleteZdravniki(){
@@ -453,26 +427,8 @@ function oznaciNaMapi(zdravnik, adresa){
 		$('#map').html("<p>Ni bilo mogoče najti vašo pozicijo! Omogocite da brskalnik sledi vašo pozicijo!</p>");
 	}
 
-	//var rawFile = new XMLHttpRequest();
-	//var zdravniki;
-	//rawFile.open("GET", "zdravniki.txt", false);
-	//rawFile.onreadystatechange = function () {
-	//	if(rawFile.readyState === 4) {
-	//		if(rawFile.status === 200 || rawFile.status == 0) {
-	//			zdravniki = rawFile.responseText.split("\n");
-	//		}
-	//	}
-	//}
-	//rawFile.send(null);
-	////console.log(zdravniki[0]);
-
-	//var address = [];
-	//for(var i=0; i<30; i++) {
-	//	address[i] = zdravniki[i].split(",")[2];
-	//	//console.log(address);
-	//}
-
 }
+
 function clearOverlays() {
 	for (var i = 0; i < markersArray.length; i++ ) {
 		markersArray[i].setMap(null);
@@ -695,7 +651,8 @@ function generirajBolniki(){
 				+ (currentdate.getMonth()+1)  + "-"
 				+ currentdate.getDate() + "T"
 				+ datum + ":"
-				+ (minute+j);
+				+ minute + ":"
+				+ "0" + j;
 			//console.log(datumInUra);
 			//console.log("1");
 			//console.log(podatkiG[0][0]);
@@ -706,7 +663,7 @@ function generirajBolniki(){
 			var sistolicniKrvniTlak = podatkiG[i*5+j][3];
 			var diastolicniKrvniTlak = podatkiG[i*5+j][4];
 			var nasicenostKrviSKisikom = podatkiG[i*5+j][5];
-			var merilec = "medicinska sestra Coach Bud";
+			var merilec = "dr. Goran Dragić";
 
 			$.ajaxSetup({
 				headers: {"Ehr-Session": sessionId}
@@ -765,24 +722,39 @@ $(document).ready(function() {
 	});
 	$('#preberiObstojeciVitalniZnak').change(function() {
 		$("#dodajMeritveVitalnihZnakovSporocilo").html("");
-		var podatki = $(this).val().split("|");
-		$("#dodajVitalnoEHR").val(podatki[0]);
-		var currentdate = new Date();
-		var datum = (currentdate.getHours() < 10)?"0"+currentdate.getHours():currentdate.getHours();
-		var minute = (currentdate.getMinutes() < 10)?"0"+currentdate.getMinutes():currentdate.getMinutes();
-		var datumInUra = currentdate.getFullYear() + "-"
-			+ (currentdate.getMonth()+1)  + "-"
-			+ currentdate.getDate() + "T"
-			+ datum + ":"
-			+ minute;
-		$("#dodajVitalnoDatumInUra").val(datumInUra);
-		$("#dodajVitalnoTelesnaVisina").val(podatki[1]);
-		$("#dodajVitalnoTelesnaTeza").val(podatki[2]);
-		$("#dodajVitalnoTelesnaTemperatura").val(podatki[3]);
-		$("#dodajVitalnoKrvniTlakSistolicni").val(podatki[4]);
-		$("#dodajVitalnoKrvniTlakDiastolicni").val(podatki[5]);
-		$("#dodajVitalnoNasicenostKrviSKisikom").val(podatki[6]);
-		$("#dodajVitalnoMerilec").val(podatki[7]);
+		var podatki = $(this).val();
+		if(podatki) {
+			podatki = podatki.split("|");
+			$("#dodajVitalnoEHR").val(podatki[0]);
+			var currentdate = new Date();
+			var datum = (currentdate.getHours() < 10) ? "0" + currentdate.getHours() : currentdate.getHours();
+			var minute = (currentdate.getMinutes() < 10) ? "0" + currentdate.getMinutes() : currentdate.getMinutes();
+			var sekunde = (currentdate.getSeconds() < 10) ? "0" + currentdate.getSeconds() : currentdate.getSeconds();
+			var datumInUra = currentdate.getFullYear() + "-"
+				+ (currentdate.getMonth() + 1) + "-"
+				+ currentdate.getDate() + "T"
+				+ datum + ":"
+				+ minute + ":"
+				+ sekunde;
+			$("#dodajVitalnoDatumInUra").val(datumInUra);
+			$("#dodajVitalnoTelesnaVisina").val(podatki[1]);
+			$("#dodajVitalnoTelesnaTeza").val(podatki[2]);
+			$("#dodajVitalnoTelesnaTemperatura").val(podatki[3]);
+			$("#dodajVitalnoKrvniTlakSistolicni").val(podatki[4]);
+			$("#dodajVitalnoKrvniTlakDiastolicni").val(podatki[5]);
+			$("#dodajVitalnoNasicenostKrviSKisikom").val(podatki[6]);
+			$("#dodajVitalnoMerilec").val(podatki[7]);
+		}else{
+			$("#dodajVitalnoEHR").val("");
+			$("#dodajVitalnoDatumInUra").val("");
+			$("#dodajVitalnoTelesnaVisina").val("");
+			$("#dodajVitalnoTelesnaTeza").val("");
+			$("#dodajVitalnoTelesnaTemperatura").val("");
+			$("#dodajVitalnoKrvniTlakSistolicni").val("");
+			$("#dodajVitalnoKrvniTlakDiastolicni").val("");
+			$("#dodajVitalnoNasicenostKrviSKisikom").val("");
+			$("#dodajVitalnoMerilec").val("");
+		}
 	});
 	$('#preberiEhrIdZaVitalneZnake').change(function() {
 		$("#preberiMeritveVitalnihZnakovSporocilo").html("");
@@ -809,25 +781,28 @@ $(document).ready(function() {
 		}
 	});
 	$("#obmocje").change(function() {
-		//alert( "Handler for .change() called." );
 		clearOverlays();
 		var obmocje = $(this).val();
 		var str = 0;
 		$("#strana").val(str);
-		var zdravniki = najdiZdravnike(obmocje);
-		$("#previous").attr('class', 'disabled');
-		if(zdravniki.length<=5){
-			$("#next").attr('class', 'disabled');
-		}else{
-			$("#next").attr('class', 'enabled');
+		if(obmocje === "noben"){
+			$("#zdravniki").hide();
+		}else {
+			var zdravniki = najdiZdravnike(obmocje);
+			$("#previous").attr('class', 'disabled');
+			if (zdravniki.length <= 5) {
+				$("#next").attr('class', 'disabled');
+			} else {
+				$("#next").attr('class', 'enabled');
+			}
+			//console.log(zdravniki.length);
+			var zdravnikiNaStrani = najdiNaStrani(zdravniki, 0);
+			//for(var i=0; i<zdravnikiNaStrani.length; i++) {
+			//	console.log(zdravnikiNaStrani[i]);
+			//}
+			vstaviZdravnikeNaStrani(zdravnikiNaStrani);
+			$("#zdravniki").show();
 		}
-		//console.log(zdravniki.length);
-		var zdravnikiNaStrani = najdiNaStrani(zdravniki, 0);
-		//for(var i=0; i<zdravnikiNaStrani.length; i++) {
-		//	console.log(zdravnikiNaStrani[i]);
-		//}
-		vstaviZdravnikeNaStrani(zdravnikiNaStrani);
-		$("#zdravniki").show();
 	});
 	setInterval(function() { obravnavajVisinoInTezo($('#dodajVitalnoTelesnaVisina').val(), $('#dodajVitalnoTelesnaTeza').val());}, 200);
 	setInterval(function() { obravnavajTemperaturo($('#dodajVitalnoTelesnaTemperatura').val());}, 200);

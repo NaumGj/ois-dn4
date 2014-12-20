@@ -1,0 +1,32 @@
+body {padding: 10px;}
+.btn {margin-top: 10px;}
+.obvestilo {margin-left:10px;}
+.warningspan {
+    display: compact;
+    font-size: 14px;
+    line-height: 200%;
+}
+.seznam-zdravnikov:hover {
+    cursor: pointer;
+    background-color: aliceblue;
+}
+#previous:hover, #next:hover {
+    cursor: pointer;
+}
+#info {
+    font-weight: bold;
+}
+#zdravniki {
+    display: none;
+    border-left: 1px dashed #333;
+}
+#strana {
+    display: none;
+}
+.adrese-zdravnikov {
+    display: none;
+}
+#map {
+    width:100%;
+    height:400px;
+}
