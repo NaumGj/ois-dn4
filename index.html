@@ -5,6 +5,7 @@
 	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	    <title>EhrScape - Vnos in poizvedovanje po EHR podatkih</title>
 		<link rel="stylesheet" href="svg.css">
+		<link rel="stylesheet" href="typeahead.css">
 		<link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/default.min.css">
 	    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 	    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
@@ -12,6 +13,7 @@
 		<script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
 		<script src="http://jawj.github.io/OverlappingMarkerSpiderfier/bin/oms.min.js"></script>
 		<script src="demo.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.9.3/typeahead.min.js"></script>
 	    <style>
 	  		body {padding: 10px;}
 	  		.btn {margin-top: 10px;}
@@ -27,6 +29,9 @@
 			}
 			#previous:hover, #next:hover {
 				cursor: pointer;
+			}
+			#info {
+				font-weight: bold;
 			}
 			.adrese-zdravnikov {
 				display: none;
@@ -62,7 +67,7 @@
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-sm-6"><b>Pregled</b> meritev <b>vitalnih znakov</b> bolnika</div>
 							<div class="col-lg-3 col-md-3 col-sm-3"><select class="form-control input-sm" id="preberiTipZaVitalneZnake"><option value="AQL poizvedba">AQL vitalni znaki</option><option value="vizualiziraj podatke">Vizualiziraj podatke</option></select></div>
-							<div class="col-lg-3 col-md-3 col-sm-3"><select class="form-control input-sm" id="preberiEhrIdZaVitalneZnake"><option value=""></option><option value="3e7ad942-52ba-45cb-8888-a5bc8b36007c">Kyle Korver</option><option value="0e296572-e26b-4f1a-8d12-548ae1eb889c">Stephen Curry</option><option value="90ecf9af-45b2-4f7d-ba01-7c37f41d197a">Pero Antic</option><option value="b931580f-2b05-488b-985b-8d9ffb08ad02">Ata Smrk</option><option value="d564c6a3-5a43-4fcc-bfa7-9ac76e9673bd">Pujsa Pepa</option></select></div>
+							<div class="col-lg-3 col-md-3 col-sm-3"><select class="form-control input-sm" id="preberiEhrIdZaVitalneZnake"><option value=""></option><option value="3e7ad942-52ba-45cb-8888-a5bc8b36007c">Kyle Korver</option><option value="0e296572-e26b-4f1a-8d12-548ae1eb889c">Stephen Curry</option><option value="90ecf9af-45b2-4f7d-ba01-7c37f41d197a">Pero Antic</option></select></div>
 						</div>
 					</div>
 					<div class="panel-body">
@@ -112,31 +117,35 @@
 					</div>
 					<div class="panel-body">
 						<div class="row">
-						<div id="zdravniki" class="col-lg-5 col-md-5 col-sm-5" style="display: none">
-							<a id="zdravnik1" class="seznam-zdravnikov"></a><br>
-							<option id="adresa1" value="" class="adrese-zdravnikov"></option>
-							<a id="zdravnik2" class="seznam-zdravnikov"></a><br>
-							<option id="adresa2" value="" class="adrese-zdravnikov"></option>
-							<a id="zdravnik3" class="seznam-zdravnikov"></a><br>
-							<option id="adresa3" value="" class="adrese-zdravnikov"></option>
-							<a id="zdravnik4" class="seznam-zdravnikov"></a><br>
-							<option id="adresa4" value="" class="adrese-zdravnikov"></option>
-							<a id="zdravnik5" class="seznam-zdravnikov"></a><br>
-							<option id="adresa5" value="" class="adrese-zdravnikov"></option>
-							<ul class="pager pull-left">
-								<li id="previous" class="disabled"><a onclick="najdiPreviousPage()">Previous</a></li>
-								<li id="next" class="enabled"><a onclick="najdiNextPage()">Next</a></li>
-								<option id="strana" style="display: none;" value="0"></option>
-							</ul>
+							<div class="bs-example col-lg-6 col-md-6 col-sm-6">
+								Iščite: (&ltEnter&gt za oznako na mapi)
+								<input type="text" class="typeahead tt-query" autocomplete="off" spellcheck="false">
+							</div>
+							<div id="zdravniki" class="col-lg-6 col-md-6 col-sm-6" style="display: none">
+								<a id="zdravnik1" class="seznam-zdravnikov"></a><br>
+								<option id="adresa1" value="" class="adrese-zdravnikov"></option>
+								<a id="zdravnik2" class="seznam-zdravnikov"></a><br>
+								<option id="adresa2" value="" class="adrese-zdravnikov"></option>
+								<a id="zdravnik3" class="seznam-zdravnikov"></a><br>
+								<option id="adresa3" value="" class="adrese-zdravnikov"></option>
+								<a id="zdravnik4" class="seznam-zdravnikov"></a><br>
+								<option id="adresa4" value="" class="adrese-zdravnikov"></option>
+								<a id="zdravnik5" class="seznam-zdravnikov"></a><br>
+								<option id="adresa5" value="" class="adrese-zdravnikov"></option>
+								<ul class="pager pull-left">
+									<li id="previous" class="disabled"><a onclick="najdiPreviousPage()">Previous</a></li>
+									<li id="next" class="enabled"><a onclick="najdiNextPage()">Next</a></li>
+									<option id="strana" style="display: none;" value="0"></option>
+								</ul>
+							</div>
 						</div>
-						<div class="col-lg-7 col-md-7 col-sm-7" id="kriticne" >
+						<div class="col-lg-12 col-md-12 col-sm-12" id="kriticne" >
 							<span id="itm" class="label label-warning warningspan"></span>
 							<span id="temperatura" class="label label-warning warningspan"></span>
 							<span id="sistolicni" class="label label-warning warningspan"></span>
 							<span id="diastolicni" class="label label-warning warningspan"></span>
 							<span id="nasicenost" class="label label-warning warningspan"></span>
 						</div>
-							</div>
 						<div class="col-lg-12 col-md-12 col-sm-12" id="map"></div>
 					</div>
 				</div>

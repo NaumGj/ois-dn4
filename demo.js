@@ -230,6 +230,30 @@ function preberiMeritveVitalnihZnakov() {
 	//return podatkid3;
 }
 
+function autocompleteZdravniki(){
+	var rawFile = new XMLHttpRequest();
+	var zdravniki;
+	rawFile.open("GET", "zdravniki.txt", false);
+	rawFile.onreadystatechange = function () {
+		if(rawFile.readyState === 4) {
+			if(rawFile.status === 200 || rawFile.status == 0) {
+				zdravniki = rawFile.responseText.split("\n");
+			}
+		}
+	}
+	rawFile.send(null);
+
+	var ustrezniZdravniki = [];
+	var stevec = 0;
+	for(var i=0; i<zdravniki.length; i++) {
+		ustrezniZdravniki[i] = zdravniki[i].split(",").join(", ");
+	}
+	return ustrezniZdravniki;
+
+	//return zdravniki;
+
+}
+
 function najdiZdravnike(obmocje){
 	var rawFile = new XMLHttpRequest();
 	var zdravniki;
@@ -672,7 +696,7 @@ function generirajBolniki(){
 				+ currentdate.getDate() + "T"
 				+ datum + ":"
 				+ (minute+j);
-			console.log(datumInUra);
+			//console.log(datumInUra);
 			//console.log("1");
 			//console.log(podatkiG[0][0]);
 			var telesnaVisina = podatkiG[i*5+j][0];
@@ -714,10 +738,10 @@ function generirajBolniki(){
 				data: JSON.stringify(podatki),
 				success: function (res) {
 					console.log(res.meta.href);
-					$("#dodajMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-success fade-in'>" + res.meta.href + ".</span>");
+					$("#generirajSporocilo").html("<span class='obvestilo label label-success fade-in'>Bolniki so uspesno generirani.</span>");
 				},
 				error: function(err) {
-					$("#dodajMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
+					$("#generirajSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
 					console.log(JSON.parse(err.responseText).userMessage);
 				}
 			});
@@ -764,6 +788,25 @@ $(document).ready(function() {
 		$("#preberiMeritveVitalnihZnakovSporocilo").html("");
 		$("#chart4").html("");
 		$("#meritveVitalnihZnakovEHRid").val($(this).val());
+	});
+	$('input.typeahead').typeahead({
+		name: 'accounts',
+		local: autocompleteZdravniki(),
+		limit: 3
+	});
+	$(".typeahead").keypress(function (event) {
+		if (event.which == 13) {
+			try {
+				var vrednost = $(".typeahead").val();
+				var zdravnik = vrednost.split(",")[0];
+				var adresa = vrednost.split(",")[2];
+				clearOverlays();
+				oznaciNaMapi(zdravnik, adresa);
+			}
+			catch(err) {
+				clearOverlays();
+			}
+		}
 	});
 	$("#obmocje").change(function() {
 		//alert( "Handler for .change() called." );
