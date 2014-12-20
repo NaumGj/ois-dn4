@@ -197,10 +197,10 @@ function preberiMeritveVitalnihZnakov() {
 									podatkid3[i * 5] = rows[i].Temperature_magnitude;
 									podatkid3[i * 5 + 1] = rows[i].Systolic_magnitude;
 									podatkid3[i * 5 + 2] = rows[i].Diastolic_magnitude;
-									podatkid3[i * 5 + 3] = rows[i].Body_Mass_Index_magnitude;
+									podatkid3[i * 5 + 3] = rows[i].Body_Mass_Index_magnitude.toFixed(2);
 									podatkid3[i * 5 + 4] = rows[i].spO2_numerator;
 								}else if(tip === "AQL poizvedba") {
-									results += "<tr><td>" + rows[i].Temperature_magnitude + "</td><td>" + rows[i].Systolic_magnitude + "</td><td>" + rows[i].Diastolic_magnitude + "</td><td>" + rows[i].Body_Mass_Index_magnitude + "</td><td>" + rows[i].spO2_numerator + "</td>";
+									results += "<tr><td>" + rows[i].Temperature_magnitude + "</td><td>" + rows[i].Systolic_magnitude + "</td><td>" + rows[i].Diastolic_magnitude + "</td><td>" + rows[i].Body_Mass_Index_magnitude.toFixed(2) + "</td><td>" + rows[i].spO2_numerator + "</td>";
 								}
 							}
 							if(tip === "AQL poizvedba") {
@@ -655,28 +655,34 @@ function generirajBolniki(){
 	sessionId = getSessionId();
 
 	var ehrIDs = ['3e7ad942-52ba-45cb-8888-a5bc8b36007c','0e296572-e26b-4f1a-8d12-548ae1eb889c','90ecf9af-45b2-4f7d-ba01-7c37f41d197a'];
-	var podatki1 = [['201','95','38','160','130','95'],['201','93','37','140','95','97'],['201','94','36.5','130','95','98']];
-	var podatki2 = [['201','95','38','160','130','95'],['201','93','37','140','95','97'],['201','94','36.5','130','95','98']];
-	var podatki3 = [['201','95','38','160','130','95'],['201','93','37','140','95','97'],['201','94','36.5','130','95','98']];
 
 	for(var i=0; i<3; i++) {
+		var podatkiG = [['201','95','36.5','140','88','98'],['201','94','37.3','160','95','96'],['201','93','38','175','115','97'],['201','95','37.7','180','127','96'],['201','96','36.8','140','90','98'],
+			['195','88','38.3','125','80','99'],['195','86','39.3','130','85','97'],['195','82','40.1','135','92','96'],['195','83','38.9','130','90','98'],['195','84','37.7','120','80','99'],
+			['211','118','36.5','120','80','98'],['211','124','36.8','125','82','98'],['211','134','36.9','140','93','95'],['211','145','37.1','145','98','93.5'],['211','156','37.0','153','102','92']];
+		//console.log("zunanja");
 		var ehrId = ehrIDs[i];
-		for(var j=0; j<3; j++) {
+		for(var j=0; j<5; j++) {
+			//console.log("notranja");
 			var currentdate = new Date();
 			var datum = (currentdate.getHours() < 10)?"0"+currentdate.getHours():currentdate.getHours();
+			var minute = (currentdate.getMinutes() < 10)?"0"+currentdate.getMinutes():currentdate.getMinutes();
 			var datumInUra = currentdate.getFullYear() + "-"
 				+ (currentdate.getMonth()+1)  + "-"
 				+ currentdate.getDate() + "T"
 				+ datum + ":"
-				+ currentdate.getMinutes();
-			//console.log(datumInUra);
-			var telesnaVisina = podatki1[j][0];
-			var telesnaTeza = podatki1[j][1];
-			var telesnaTemperatura = podatki1[j][2];
-			var sistolicniKrvniTlak = podatki1[j][3];
-			var diastolicniKrvniTlak = podatki1[j][4];
-			var nasicenostKrviSKisikom = podatki1[j][5];
-			var merilec = "medicinska sestra JaVale McGee";
+				+ (minute+j);
+			console.log(datumInUra);
+			//console.log("1");
+			//console.log(podatkiG[0][0]);
+			var telesnaVisina = podatkiG[i*5+j][0];
+			//console.log("2");
+			var telesnaTeza = podatkiG[i*5+j][1];
+			var telesnaTemperatura = podatkiG[i*5+j][2];
+			var sistolicniKrvniTlak = podatkiG[i*5+j][3];
+			var diastolicniKrvniTlak = podatkiG[i*5+j][4];
+			var nasicenostKrviSKisikom = podatkiG[i*5+j][5];
+			var merilec = "medicinska sestra Coach Bud";
 
 			$.ajaxSetup({
 				headers: {"Ehr-Session": sessionId}
@@ -710,7 +716,7 @@ function generirajBolniki(){
 					console.log(res.meta.href);
 					$("#dodajMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-success fade-in'>" + res.meta.href + ".</span>");
 				},
-				error: function (err) {
+				error: function(err) {
 					$("#dodajMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
 					console.log(JSON.parse(err.responseText).userMessage);
 				}
@@ -739,11 +745,12 @@ $(document).ready(function() {
 		$("#dodajVitalnoEHR").val(podatki[0]);
 		var currentdate = new Date();
 		var datum = (currentdate.getHours() < 10)?"0"+currentdate.getHours():currentdate.getHours();
+		var minute = (currentdate.getMinutes() < 10)?"0"+currentdate.getMinutes():currentdate.getMinutes();
 		var datumInUra = currentdate.getFullYear() + "-"
 			+ (currentdate.getMonth()+1)  + "-"
 			+ currentdate.getDate() + "T"
 			+ datum + ":"
-			+ currentdate.getMinutes();
+			+ minute;
 		$("#dodajVitalnoDatumInUra").val(datumInUra);
 		$("#dodajVitalnoTelesnaVisina").val(podatki[1]);
 		$("#dodajVitalnoTelesnaTeza").val(podatki[2]);
