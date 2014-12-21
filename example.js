@@ -92,7 +92,7 @@ function vizualizacija(data) {
     }
 
     var chart = circularHeatChart()
-        .innerRadius(20)
+        .innerRadius(22)
         .segmentHeight(20)
         .range(["yellow", "red"])
         .numSegments(5)

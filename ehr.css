@@ -13,6 +13,9 @@ body {padding: 10px;}
 #previous:hover, #next:hover {
     cursor: pointer;
 }
+#chart4 {
+    overflow: auto;
+}
 #info {
     font-weight: bold;
 }

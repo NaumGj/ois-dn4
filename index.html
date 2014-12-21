@@ -14,12 +14,20 @@
 		<script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
 		<script src="http://jawj.github.io/OverlappingMarkerSpiderfier/bin/oms.min.js"></script>
 		<script src="demo.js"></script>
+		<script src="mapa.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.9.3/typeahead.min.js"></script>
 		<script src="http://d3js.org/d3.v3.min.js"></script>
 		<script src="circularHeatChart.js"></script>
 		<script src="example.js"></script>
 		<script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
 		<script>hljs.initHighlightingOnLoad();</script>
+		<style>
+			.warningspan {
+				display: compact;
+				font-size: 14px;
+				line-height: 200%;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="page-header"><h2>Vnos in poizvedovanje po EHR podatkih <small>EhrScape platforma</small></h2></div>
@@ -36,7 +44,7 @@
 						<span class="label label-default">Priimek</span><input id="kreirajPriimek" type="text" class="form-control" placeholder="Bin Laden">
 						<span class="label label-default">Datum rojstva</span><input id="kreirajDatumRojstva" type="text" class="form-control" placeholder="1957-03-10T09:08">
 						<button type="button" class="btn btn-primary btn-xs" onclick="kreirajEHRzaBolnika()">Dodaj osnovne podatke o bolniku</button><span id="kreirajSporocilo"></span><br><br>
-						<button type="button" class="btn btn-primary btn-lg" onclick="generirajBolniki()">Generiraj bolniki</button><span id="generirajSporocilo"></span>
+						<button type="button" class="btn btn-primary btn-sm" onclick="generirajBolniki()">Generiraj bolniki</button><span id="generirajSporocilo"></span>
 					</div>
 				</div>
 			</div>
