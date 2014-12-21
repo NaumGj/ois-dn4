@@ -244,13 +244,31 @@ function najdiZdravnike(obmocje){
 	var ustrezniZdravniki = [];
 	var stevec = 0;
 	for(var i=0; i<zdravniki.length; i++) {
+		//console.log(zdravniki[i].split(",")[1].toLowerCase());
 		if (zdravniki[i].split(",")[1].toLowerCase().indexOf(obmocje) !== (-1)) {
 			ustrezniZdravniki[stevec]=zdravniki[i];
+			console.log(ustrezniZdravniki);
 			stevec++;
 		}
 	}
 	return ustrezniZdravniki;
 
+}
+
+function vrniSpecijalizacije() {
+	var rawFile = new XMLHttpRequest();
+	var specijalizacije;
+	rawFile.open("GET", "specijalizacije.txt", false);
+	rawFile.onreadystatechange = function () {
+		if(rawFile.readyState === 4) {
+			if(rawFile.status === 200 || rawFile.status == 0) {
+				specijalizacije = rawFile.responseText.split("\n");
+			}
+		}
+	}
+	rawFile.send(null);
+
+	return specijalizacije;
 }
 
 function najdiNaStrani(zdravniki, strana){
@@ -307,8 +325,8 @@ function najdiNextPage(){
 	if(zdravnikiNaStrani != null){
 		$("#strana").val(strana);
 		vstaviZdravnikeNaStrani(zdravnikiNaStrani);
+		$("#previous").attr('class', 'enabled');
 	}
-	$("#previous").attr('class', 'enabled');
 	//console.log(zdravniki.length);
 
 	//for(var i=0; i<zdravnikiNaStrani.length; i++) {
@@ -319,6 +337,9 @@ function najdiNextPage(){
 }
 
 function vstaviZdravnikeNaStrani(zdravnikiNaStrani){
+	if(zdravnikiNaStrani == null){
+		return;
+	}
 	$("#zdravnik1").text("");
 	$("#zdravnik2").text("");
 	$("#zdravnik3").text("");
@@ -706,6 +727,19 @@ function generirajBolniki(){
 	}
 }
 
+function bstypeahead(){
+	try{
+		var vrednost = $(".typeahead").val();
+		var zdravnik = vrednost.split(",")[0];
+		var adresa = vrednost.split(",")[2];
+		clearOverlays();
+		oznaciNaMapi(zdravnik, adresa);
+	}
+	catch(err) {
+		clearOverlays();
+	}
+}
+
 $(document).ready(function() {
 	oznaciNaMapi("","prvic");
 	$('#preberiObstojeciEHR').change(function() {
@@ -766,20 +800,13 @@ $(document).ready(function() {
 		local: autocompleteZdravniki(),
 		limit: 3
 	});
-	$(".typeahead").keypress(function (event) {
-		if (event.which == 13) {
-			try {
-				var vrednost = $(".typeahead").val();
-				var zdravnik = vrednost.split(",")[0];
-				var adresa = vrednost.split(",")[2];
-				clearOverlays();
-				oznaciNaMapi(zdravnik, adresa);
-			}
-			catch(err) {
-				clearOverlays();
-			}
-		}
-	});
+	var specijalizacije = vrniSpecijalizacije();
+	for (var i=0; i<specijalizacije.length; i++) {
+		var opcije = $("#obmocje").html();
+		//console.log(specijalizacije[i].toLowerCase());
+		console.log(opcije);
+		$("#obmocje").html(opcije+'<option value="'+specijalizacije[i].toLowerCase().replace(/^\s+|\s+$/g, '')+'">'+specijalizacije[i].replace(/^\s+|\s+$/g, '')+'</option>');
+	}
 	$("#obmocje").change(function() {
 		clearOverlays();
 		var obmocje = $(this).val();
@@ -788,6 +815,7 @@ $(document).ready(function() {
 		if(obmocje === "noben"){
 			$("#zdravniki").hide();
 		}else {
+			console.log(obmocje);
 			var zdravniki = najdiZdravnike(obmocje);
 			$("#previous").attr('class', 'disabled');
 			if (zdravniki.length <= 5) {

@@ -86,14 +86,14 @@
 					<div class="panel-heading">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-sm-6"><b>Izbira</b> ustreznega <b>zdravnika</b></div>
-							<div class="col-lg-6 col-md-6 col-sm-6"><select class="form-control input" id="obmocje"><option value="noben"></option><option value="nevrologija">Nevrologija</option><option value="otorinolaringologija">Otorinolaringologija</option></select><br></div>
+							<div class="col-lg-6 col-md-6 col-sm-6"><select class="form-control input" id="obmocje"><option value="noben"></option></select><br></div>
 						</div>
 					</div>
 					<div class="panel-body">
 						<div class="row">
 							<div class="bs-example col-lg-6 col-md-6 col-sm-6">
-								Iščite: (&ltEnter&gt za oznako na mapi)
 								<input type="text" class="typeahead tt-query" autocomplete="off" spellcheck="false">
+								<button type="button" class="btn btn-primary btn-xs" onclick="bstypeahead()">Označi na mapi</button>
 							</div>
 							<div id="zdravniki" class="col-lg-6 col-md-6 col-sm-6">
 								<a id="zdravnik1" class="seznam-zdravnikov"></a><br>
