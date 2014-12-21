@@ -1,7 +1,7 @@
 var request = require('request');
 var cheerio = require('cheerio');
 
-for(var i=451; i<=465; i++){
+for(var i=0; i<=465; i++){
     request('http://zdravniki.org/zdravniki?page='+i, function (error, response, html) {
         if (!error && response.statusCode == 200) {
             var $ = cheerio.load(html);
